@@ -36,6 +36,7 @@
 */
 class CGameContext : public IGameServer
 {
+protected:
 	IServer *m_pServer;
 	class CConfig *m_pConfig;
 	class IConsole *m_pConsole;

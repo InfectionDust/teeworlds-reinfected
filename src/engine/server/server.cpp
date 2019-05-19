@@ -1844,7 +1844,7 @@ int main(int argc, const char **argv) // ignore_convention
 	int FlagMask = CFGFLAG_SERVER|CFGFLAG_ECON;
 	IEngine *pEngine = CreateEngine("Teeworlds_Server");
 	IEngineMap *pEngineMap = CreateEngineMap();
-	IGameServer *pGameServer = CreateGameServer();
+	IGameServer *pGameServer = CreateModGameServer();
 	IConsole *pConsole = CreateConsole(CFGFLAG_SERVER|CFGFLAG_ECON);
 	IEngineMasterServer *pEngineMasterServer = CreateEngineMasterServer();
 	IStorage *pStorage = CreateStorage("Teeworlds", IStorage::STORAGETYPE_SERVER, argc, argv); // ignore_convention

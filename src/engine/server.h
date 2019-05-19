@@ -106,5 +106,5 @@ public:
 	virtual bool TimeScore() const { return false; }
 };
 
-extern IGameServer *CreateGameServer();
+extern IGameServer *CreateModGameServer();
 #endif

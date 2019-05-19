@@ -1630,11 +1630,19 @@ set_src(GAME_SERVER GLOB_RECURSE src/game/server
   player.cpp
   player.h
 )
+
+set(SERVER_INF_CLASS_SRC
+  src/game/server/infclass/infcgamecontext.cpp
+  src/game/server/infclass/infcgamecontext.h
+  src/game/server/infclass/infcgamecontroller.cpp
+  src/game/server/infclass/infcgamecontroller.h
+)
+
 set(GAME_GENERATED_SERVER
   src/generated/server_data.cpp
   src/generated/server_data.h
 )
-set(SERVER_SRC ${ENGINE_SERVER} ${GAME_SERVER} ${GAME_GENERATED_SERVER})
+set(SERVER_SRC ${ENGINE_SERVER} ${GAME_SERVER} ${GAME_GENERATED_SERVER} ${SERVER_INF_CLASS_SRC})
 if(TARGET_OS STREQUAL "windows")
   set(SERVER_ICON "other/icons/${SERVER_EXECUTABLE}.rc")
 else()
