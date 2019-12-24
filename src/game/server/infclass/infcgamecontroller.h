@@ -3,6 +3,7 @@
 
 #include <game/server/gamecontroller.h>
 
+class CCharacter;
 class CGameContext;
 class CInfClassPlayer;
 
@@ -12,6 +13,8 @@ public:
 	CGameControllerInfClass(CGameContext *pGameServer);
 
 	bool PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pPos);
+
+	void OnCharacterSpawn(CCharacter *pChr) override;
 };
 
 extern IGameController *CreateInfCGameServer();
