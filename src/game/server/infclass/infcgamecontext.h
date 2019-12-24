@@ -16,6 +16,8 @@ public:
 
 	void OnClientConnected(int ClientID, bool AsSpec) override;
 
+	void AnnounceSkinChange(int ClientID);
+
 protected:
 	CGameControllerInfClass *m_pInfcGameController = nullptr;
 };

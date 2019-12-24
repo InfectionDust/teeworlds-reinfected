@@ -87,4 +87,15 @@ void CInfClassGameContext::OnClientConnected(int ClientID, bool AsSpec)
 	SendSettings(ClientID);
 }
 
+void CInfClassGameContext::AnnounceSkinChange(int ClientID)
+{
+	for(int i = 0; i < MAX_CLIENTS; ++i)
+	{
+		if(!m_apPlayers[i] || (!Server()->ClientIngame(i) && !m_apPlayers[i]->IsDummy()) || Server()->GetClientVersion(i) < MIN_SKINCHANGE_CLIENTVERSION)
+			continue;
+
+		SendSkinChange(ClientID, i);
+	}
+}
+
 IGameServer *CreateModGameServer() { return new CInfClassGameContext; }
