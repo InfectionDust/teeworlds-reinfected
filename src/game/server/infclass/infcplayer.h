@@ -17,6 +17,9 @@ class CInfClassPlayer : public CPlayer
 
 public:
 	CInfClassPlayer(CInfClassGameContext *pGameServer, int ClientID, bool AsSpec = false);
+
+protected:
+	CInfClassGameContext *m_pInfcGameContext = nullptr;
 };
 
 #endif // GAME_SERVER_INFCLASS_PLAYER_H
