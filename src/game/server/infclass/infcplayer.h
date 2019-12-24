@@ -18,6 +18,8 @@ class CInfClassPlayer : public CPlayer
 public:
 	CInfClassPlayer(CInfClassGameContext *pGameServer, int ClientID, bool AsSpec = false);
 
+	void TryRespawn() override;
+
 protected:
 	CInfClassGameContext *m_pInfcGameContext = nullptr;
 };
