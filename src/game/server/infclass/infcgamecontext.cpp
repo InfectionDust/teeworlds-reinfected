@@ -1,7 +1,9 @@
 #include "infcgamecontext.h"
 #include "infcgamecontroller.h"
+#include "infcplayer.h"
 
 #include <engine/shared/config.h>
+#include <base/system.h>
 
 CInfClassGameContext::CInfClassGameContext()
 {
@@ -62,6 +64,27 @@ void CInfClassGameContext::OnInit()
 	// clamp sv_player_slots to 0..MaxClients
 	if(Config()->m_SvMaxClients < Config()->m_SvPlayerSlots)
 		Config()->m_SvPlayerSlots = Config()->m_SvMaxClients;
+}
+
+void CInfClassGameContext::OnClientConnected(int ClientID, bool AsSpec)
+{
+	if(m_apPlayers[ClientID])
+	{
+		dbg_assert(m_apPlayers[ClientID] != nullptr, "invalid clientID");
+		return;
+	}
+
+	m_apPlayers[ClientID] = new (ClientID) CInfClassPlayer(this, ClientID, AsSpec);
+
+	// send active vote
+	if(m_VoteCloseTime)
+		SendVoteSet(m_VoteType, ClientID);
+
+	// send motd
+	SendMotd(ClientID);
+
+	// send settings
+	SendSettings(ClientID);
 }
 
 IGameServer *CreateModGameServer() { return new CInfClassGameContext; }

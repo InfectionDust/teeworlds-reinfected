@@ -14,6 +14,8 @@ public:
 
 	void OnInit() override;
 
+	void OnClientConnected(int ClientID, bool AsSpec) override;
+
 protected:
 	CGameControllerInfClass *m_pInfcGameController = nullptr;
 };
