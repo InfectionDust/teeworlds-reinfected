@@ -5,6 +5,7 @@
 
 class CCharacter;
 class CGameContext;
+class CInfClassCharacter;
 class CInfClassGameContext;
 class IServer;
 
@@ -22,6 +23,7 @@ public:
 
 protected:
 	CInfClassGameContext *m_pInfcGameContext = nullptr;
+	CInfClassCharacter *m_pInfcCharacter = nullptr;
 };
 
 #endif // GAME_SERVER_INFCLASS_PLAYER_H

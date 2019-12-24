@@ -1,9 +1,9 @@
 #include "infcplayer.h"
 
+#include <game/server/infclass/entities/infccharacter.h>
+
 #include "infcgamecontext.h"
 #include "infcgamecontroller.h"
-
-#include <game/server/entities/character.h>
 
 static const bool NotADummy = false;
 
@@ -23,7 +23,8 @@ void CInfClassPlayer::TryRespawn()
 		return;
 
 	m_Spawning = false;
-	m_pCharacter = new(m_ClientID) CCharacter(&GameServer()->m_World);
+	m_pInfcCharacter = new CInfClassCharacter(&GameServer()->m_World);
+	m_pCharacter = m_pInfcCharacter;
 	m_pCharacter->Spawn(this, SpawnPos);
 	GameServer()->CreatePlayerSpawn(SpawnPos);
 }
