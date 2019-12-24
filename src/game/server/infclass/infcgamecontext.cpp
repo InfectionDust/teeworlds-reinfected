@@ -66,6 +66,19 @@ void CInfClassGameContext::OnInit()
 		Config()->m_SvPlayerSlots = Config()->m_SvMaxClients;
 }
 
+void CInfClassGameContext::OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID)
+{
+	switch(MsgID)
+	{
+	case NETMSGTYPE_CL_SKINCHANGE:
+		return;
+	default:
+		break;
+	}
+
+	CGameContext::OnMessage(MsgID, pUnpacker, ClientID);
+}
+
 void CInfClassGameContext::OnClientConnected(int ClientID, bool AsSpec)
 {
 	if(m_apPlayers[ClientID])

@@ -14,6 +14,8 @@ public:
 
 	void OnInit() override;
 
+	void OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID) override;
+
 	void OnClientConnected(int ClientID, bool AsSpec) override;
 
 	void AnnounceSkinChange(int ClientID);
