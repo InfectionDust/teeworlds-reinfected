@@ -1640,6 +1640,8 @@ set(SERVER_INF_CLASS_SRC
   src/game/server/infclass/infcgamecontroller.h
   src/game/server/infclass/infcplayer.cpp
   src/game/server/infclass/infcplayer.h
+  src/game/server/infclass/infcserver.cpp
+  src/game/server/infclass/infcserver.h
 )
 
 set(GAME_GENERATED_SERVER

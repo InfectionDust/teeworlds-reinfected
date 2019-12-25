@@ -1806,7 +1806,13 @@ void CServer::SnapSetStaticsize(int ItemType, int Size)
 	m_SnapshotDelta.SetStaticsize(ItemType, Size);
 }
 
+#if 0
 static CServer *CreateServer() { return new CServer(); }
+
+#else
+#define CreateServer CreateInfcServer
+extern CServer *CreateServer();
+#endif
 
 int main(int argc, const char **argv) // ignore_convention
 {
