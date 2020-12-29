@@ -2,6 +2,9 @@
 #include "infcgamecontroller.h"
 #include "infcplayer.h"
 
+#include "classes/infected/hunter.h"
+#include "classes/humans/hero.h"
+
 #include <engine/shared/config.h>
 #include <base/system.h>
 
@@ -26,8 +29,16 @@ CInfClassGameContext::CInfClassGameContext()
 {
 }
 
+void CInfClassGameContext::RegisterTypes()
+{
+	RegisterInfClassClass<CInfClassHunter>();
+	RegisterInfClassClass<CInfClassHero>();
+}
+
 void CInfClassGameContext::OnInit()
 {
+	RegisterTypes();
+
 	// init everything
 	m_pServer = Kernel()->RequestInterface<IServer>();
 	m_pConfig = Kernel()->RequestInterface<IConfigManager>()->Values();

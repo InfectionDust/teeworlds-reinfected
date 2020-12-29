@@ -17,6 +17,7 @@ public:
 
 	CGameControllerInfClass *GetController() const { return m_pInfcGameController; }
 
+	void RegisterTypes();
 	void OnInit() override;
 
 	void OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID) override;
