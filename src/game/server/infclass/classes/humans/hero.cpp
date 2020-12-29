@@ -23,3 +23,16 @@ void CInfClassHero::SetupSkin()
 	m_SkinInfo.m_aSkinPartColors[SKINPART_FEET] = 9765959;
 	m_SkinInfo.m_aSkinPartColors[SKINPART_EYES] = 65408;
 }
+
+void CInfClassHero::OnCharacterSpawned()
+{
+	CInfClassHuman::OnCharacterSpawned();
+
+	m_pCharacter->GiveWeapon(WEAPON_GUN, 10);
+	m_pCharacter->GiveWeapon(WEAPON_SHOTGUN, 10);
+	m_pCharacter->GiveWeapon(WEAPON_GRENADE, 10);
+	m_pCharacter->GiveWeapon(WEAPON_LASER, 10);
+
+	m_pCharacter->SetActiveWeapon(WEAPON_GRENADE);
+	m_pCharacter->SetLastWeapon(WEAPON_GUN);
+}

@@ -11,6 +11,8 @@ public:
 
 	static const char *ClassName() { return "hero"; }
 	void SetupSkin() override;
+
+	void OnCharacterSpawned() override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_HERO_H
