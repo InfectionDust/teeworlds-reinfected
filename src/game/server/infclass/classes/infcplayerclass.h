@@ -3,6 +3,8 @@
 
 #include <generated/protocol.h>
 
+class CInfClassCharacter;
+
 struct SkinInfo
 {
 	char m_aaSkinPartNames[NUM_SKINPARTS][24];
@@ -15,6 +17,8 @@ class CInfClassPlayerClass
 public:
 	virtual ~CInfClassPlayerClass() = default;
 
+	void SetCharacter(CInfClassCharacter *character);
+
 	const SkinInfo &GetSkinInfo() const { return m_SkinInfo; }
 	virtual void SetupSkin();
 
@@ -25,6 +29,7 @@ protected:
 	explicit CInfClassPlayerClass();
 
 	SkinInfo m_SkinInfo;
+	CInfClassCharacter *m_pCharacter = nullptr;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_PLAYER_CLASS_H
