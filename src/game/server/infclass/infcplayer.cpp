@@ -2,6 +2,8 @@
 
 #include <game/server/infclass/entities/infccharacter.h>
 
+#include "classes/infcplayerclass.h"
+
 #include "infcgamecontext.h"
 #include "infcgamecontroller.h"
 
@@ -25,6 +27,21 @@ void CInfClassPlayer::TryRespawn()
 	m_Spawning = false;
 	m_pInfcCharacter = new CInfClassCharacter(&GameServer()->m_World);
 	m_pCharacter = m_pInfcCharacter;
+
 	m_pCharacter->Spawn(this, SpawnPos);
 	GameServer()->CreatePlayerSpawn(SpawnPos);
+}
+
+void CInfClassPlayer::SetCharacterClass(int ClassId)
+{
+	CInfClassPlayerClass *pClass = m_pInfcGameContext->CreateInfClass(ClassId);
+	SetCharacterClass(pClass);
+}
+
+void CInfClassPlayer::SetCharacterClass(CInfClassPlayerClass *pClass)
+{
+	if(m_pInfcPlayerClass)
+		delete m_pInfcPlayerClass;
+
+	m_pInfcPlayerClass = pClass;
 }

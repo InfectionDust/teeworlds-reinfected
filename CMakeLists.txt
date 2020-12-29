@@ -1632,6 +1632,8 @@ set_src(GAME_SERVER GLOB_RECURSE src/game/server
 )
 
 set(SERVER_INF_CLASS_SRC
+  src/game/server/infclass/classes/infcplayerclass.cpp
+  src/game/server/infclass/classes/infcplayerclass.h
   src/game/server/infclass/entities/infccharacter.cpp
   src/game/server/infclass/entities/infccharacter.h
   src/game/server/infclass/infcgamecontext.cpp
