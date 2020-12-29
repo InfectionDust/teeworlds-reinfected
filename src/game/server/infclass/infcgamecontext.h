@@ -3,7 +3,12 @@
 
 #include "../gamecontext.h"
 
+#include <vector>
+#include <map>
+
 class CGameControllerInfClass;
+class CInfClassPlayer;
+class CInfClassPlayerClass;
 
 class CInfClassGameContext : public CGameContext
 {
@@ -20,8 +25,17 @@ public:
 
 	void AnnounceSkinChange(int ClientID);
 
+	CInfClassPlayerClass *CreateInfClass(int ClassId);
+
 protected:
+	using InfPlayerClassConstructor = CInfClassPlayerClass *();
+
+	template <typename C>
+	int RegisterInfClassClass();
+
 	CGameControllerInfClass *m_pInfcGameController = nullptr;
+	std::vector<InfPlayerClassConstructor*> m_ClassConstructors;
+	std::map<int, const char *> m_ClassIdToName;
 };
 
 #endif // GAME_SERVER_INFCLASS_CONTEXT_H
