@@ -35,3 +35,7 @@ void CInfClassPlayerClass::OnCharacterSpawned()
 {
 	m_pCharacter->TakeAllWeapons();
 }
+
+void CInfClassPlayerClass::OnJumped(JumpType)
+{
+}

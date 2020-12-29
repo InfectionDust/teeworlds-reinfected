@@ -11,8 +11,11 @@ class CInfClassCharacter : public CCharacter
 public:
 	CInfClassCharacter(CGameWorld *pWorld);
 
+	void Tick() override;
+
 	virtual void OnCharacterSpawn();
 
+	void EnableJump();
 	void SetActiveWeapon(int Weapon);
 	void SetLastWeapon(int Weapon);
 	void TakeAllWeapons();
@@ -21,6 +24,7 @@ public:
 
 protected:
 	CInfClassPlayerClass *m_pClass;
+	bool m_Grounded = false;
 };
 
 #endif // GAME_SERVER_INFCLASS_ENTITIES_CHARACTER_H
