@@ -31,6 +31,7 @@ void CInfClassPlayer::TryRespawn()
 	SetCharacterClass(0);
 
 	m_pCharacter->Spawn(this, SpawnPos);
+	m_pInfcPlayerClass->OnCharacterSpawned();
 	GameServer()->CreatePlayerSpawn(SpawnPos);
 }
 
@@ -61,4 +62,12 @@ void CInfClassPlayer::SetCharacterClass(CInfClassPlayerClass *pClass)
 
 	m_pInfcPlayerClass = pClass;
 	SyncSkin();
+
+	if (m_pInfcCharacter)
+	{
+		m_pInfcPlayerClass->SetCharacter(m_pInfcCharacter);
+		if (m_pInfcCharacter->IsAlive()) {
+			m_pInfcPlayerClass->OnCharacterSpawned();
+		}
+	}
 }

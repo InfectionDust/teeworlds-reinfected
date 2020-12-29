@@ -18,6 +18,9 @@ public:
 	const SkinInfo &GetSkinInfo() const { return m_SkinInfo; }
 	virtual void SetupSkin();
 
+	// Events
+	virtual void OnCharacterSpawned();
+
 protected:
 	explicit CInfClassPlayerClass();
 
