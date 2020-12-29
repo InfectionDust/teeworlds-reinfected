@@ -28,3 +28,8 @@ void CInfClassCharacter::TakeAllWeapons()
 		weapon.m_Got = false;
 	}
 }
+
+void CInfClassCharacter::SetClass(CInfClassPlayerClass *pClass)
+{
+	m_pClass = pClass;
+}

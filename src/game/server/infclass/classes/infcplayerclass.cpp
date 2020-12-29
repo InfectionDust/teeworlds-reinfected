@@ -1,9 +1,16 @@
 #include "infcplayerclass.h"
 
 #include <base/system.h>
+#include <game/server/infclass/entities/infccharacter.h>
 
 CInfClassPlayerClass::CInfClassPlayerClass()
 {
+}
+
+void CInfClassPlayerClass::SetCharacter(CInfClassCharacter *character)
+{
+	m_pCharacter = character;
+	m_pCharacter->SetClass(this);
 }
 
 void CInfClassPlayerClass::SetupSkin()
