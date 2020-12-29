@@ -10,6 +10,10 @@ public:
 	CInfClassCharacter(CGameWorld *pWorld);
 
 	virtual void OnCharacterSpawn();
+
+	void SetActiveWeapon(int Weapon);
+	void SetLastWeapon(int Weapon);
+	void TakeAllWeapons();
 };
 
 #endif // GAME_SERVER_INFCLASS_ENTITIES_CHARACTER_H
