@@ -11,6 +11,12 @@ public:
 
 	static const char *ClassName() { return "hunter"; }
 	void SetupSkin() override;
+
+	void OnJumped(JumpType jumpType) override;
+	void OnGrounded() override;
+
+protected:
+	int m_AirJumpCounter = 0;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_HUNTER_H

@@ -1,7 +1,10 @@
 #include "hunter.h"
 
+#include <game/server/infclass/entities/infccharacter.h>
+
 CInfClassHunter::CInfClassHunter()
 	: CInfClassInfected()
+	, m_AirJumpCounter(0)
 {
 }
 
@@ -21,4 +24,23 @@ void CInfClassHunter::SetupSkin()
 	m_SkinInfo.m_aSkinPartColors[SKINPART_HANDS] = 750337;
 	m_SkinInfo.m_aSkinPartColors[SKINPART_FEET] = 750337;
 	m_SkinInfo.m_aSkinPartColors[SKINPART_EYES] = 65408;
+}
+
+void CInfClassHunter::OnJumped(JumpType jumpType)
+{
+	if (jumpType != JumpType::Air)
+	{
+		return;
+	}
+	
+	++m_AirJumpCounter;
+	
+	if (m_AirJumpCounter < 2) {
+		m_pCharacter->EnableJump();
+	}
+}
+
+void CInfClassHunter::OnGrounded()
+{
+	m_AirJumpCounter = 0;
 }
