@@ -33,4 +33,5 @@ void CInfClassPlayerClass::SetupSkin()
 
 void CInfClassPlayerClass::OnCharacterSpawned()
 {
+	m_pCharacter->TakeAllWeapons();
 }

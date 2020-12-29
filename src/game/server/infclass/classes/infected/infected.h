@@ -9,6 +9,8 @@ class CInfClassInfected : public CInfClassPlayerClass
 {
 public:
 	CInfClassInfected();
+
+	void OnCharacterSpawned() override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_INFECTED_H
