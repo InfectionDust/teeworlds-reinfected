@@ -2,6 +2,9 @@
 #include "infcgamecontroller.h"
 #include "infcplayer.h"
 
+#include "classes/infected/hunter.h"
+#include "classes/humans/hero.h"
+
 #include <engine/shared/config.h>
 #include <base/system.h>
 
@@ -48,6 +51,9 @@ void CInfClassGameContext::OnInit()
 	// select gametype
 	m_pInfcGameController = new CGameControllerInfClass(this);
 	m_pController = m_pInfcGameController;
+
+	RegisterInfClassClass<CInfClassHunter>();
+	RegisterInfClassClass<CInfClassHero>();
 
 	// create all entities from the game layer
 	CMapItemLayerTilemap *pTileMap = m_Layers.GameLayer();
