@@ -10,6 +10,7 @@ public:
 	CInfClassHunter();
 
 	static const char *ClassName() { return "hunter"; }
+	void SetupSkin() override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_HUNTER_H
