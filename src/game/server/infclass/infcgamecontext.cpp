@@ -89,6 +89,13 @@ void CInfClassGameContext::OnInit()
 		Config()->m_SvPlayerSlots = Config()->m_SvMaxClients;
 }
 
+void CInfClassGameContext::OnConsoleInit()
+{
+	CGameContext::OnConsoleInit();
+
+	Console()->Register("inf_set_class", "is", CFGFLAG_SERVER, ConSetClass, this, "Set the class of a player");
+}
+
 void CInfClassGameContext::OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID)
 {
 	switch(MsgID)
@@ -134,11 +141,48 @@ void CInfClassGameContext::AnnounceSkinChange(int ClientID)
 	}
 }
 
+CInfClassPlayer *CInfClassGameContext::GetPlayer(int ClientID)
+{
+	return static_cast<CInfClassPlayer*>(m_apPlayers[ClientID]);
+}
+
 CInfClassPlayerClass *CInfClassGameContext::CreateInfClass(int ClassId)
 {
     const InfPlayerClassConstructor *constructor = m_ClassConstructors.at(ClassId);
     CInfClassPlayerClass *infClass = constructor();
     return infClass;
+}
+
+void CInfClassGameContext::ConSetClass(IConsole::IResult *pResult, void *pUserData)
+{
+	CInfClassGameContext *pSelf = static_cast<CInfClassGameContext *>(pUserData);
+	int PlayerID = pResult->GetInteger(0);
+	const char *pClassName = pResult->GetString(1);
+
+	CInfClassPlayer* pPlayer = pSelf->GetPlayer(PlayerID);
+	
+	if(!pPlayer)
+	{
+		pSelf->Console()->Print(IConsole::OUTPUT_LEVEL_STANDARD, "inf_set_class", "No such player");
+		return;
+	}
+
+	for(const auto &idToName : pSelf->m_ClassIdToName)
+	{
+		if(str_comp(pClassName, idToName.second) != 0)
+			continue;
+
+		int ClassId = idToName.first;
+		pPlayer->SetCharacterClass(ClassId);
+		char aBuf[256];
+		str_format(aBuf, sizeof(aBuf), "The admin changed the class of %s to %s", pSelf->Server()->ClientName(PlayerID), pClassName);
+		pSelf->SendChat(-1, CHAT_ALL, -1, aBuf);
+
+		return;
+	}
+
+	pSelf->Console()->Print(IConsole::OUTPUT_LEVEL_STANDARD, "inf_set_class", "Unknown class");
+	return;
 }
 
 IGameServer *CreateModGameServer() { return new CInfClassGameContext; }

@@ -18,6 +18,7 @@ public:
 	CGameControllerInfClass *GetController() const { return m_pInfcGameController; }
 
 	void OnInit() override;
+	void OnConsoleInit() override;
 
 	void OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID) override;
 
@@ -25,6 +26,7 @@ public:
 
 	void AnnounceSkinChange(int ClientID);
 
+	CInfClassPlayer *GetPlayer(int ClientID);
 	CInfClassPlayerClass *CreateInfClass(int ClassId);
 
 protected:
@@ -32,6 +34,8 @@ protected:
 
 	template <typename C>
 	int RegisterInfClassClass();
+
+	static void ConSetClass(IConsole::IResult *pResult, void *pUserData);
 
 	CGameControllerInfClass *m_pInfcGameController = nullptr;
 	std::vector<InfPlayerClassConstructor*> m_ClassConstructors;
