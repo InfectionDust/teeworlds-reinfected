@@ -28,6 +28,8 @@ void CInfClassPlayer::TryRespawn()
 	m_pInfcCharacter = new CInfClassCharacter(&GameServer()->m_World);
 	m_pCharacter = m_pInfcCharacter;
 
+	SetCharacterClass(0);
+
 	m_pCharacter->Spawn(this, SpawnPos);
 	GameServer()->CreatePlayerSpawn(SpawnPos);
 }
