@@ -12,6 +12,7 @@ public:
 	CInfClassCharacter(CGameWorld *pWorld);
 
 	void Tick() override;
+	void FireWeapon() override;
 
 	virtual void OnCharacterSpawn();
 
