@@ -13,6 +13,7 @@ public:
 	bool IsHuman() const final { return false; }
 
 	void OnCharacterSpawned() override;
+	void OnHammerHitCharacter(CInfClassCharacter *pTarget, HammerFireContext *pHitContext) override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_INFECTED_H
