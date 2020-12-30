@@ -37,6 +37,14 @@ public:
 	virtual void OnCharacterSpawned();
 	virtual void OnGrounded() { }
 	virtual void OnJumped(JumpType jumpType);
+	virtual void OnWeaponFired(int Weapon);
+
+	virtual void OnHammerFired();
+	virtual void OnGunFired();
+	virtual void OnShotgunFired();
+	virtual void OnGrenadeFired();
+	virtual void OnLaserFired();
+	virtual void OnNinjaFired();
 
 protected:
 	explicit CInfClassPlayerClass();
