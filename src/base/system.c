@@ -2110,6 +2110,7 @@ void str_sanitize_cc(char *str_in)
 /* check if the string contains '..' (parent directory) paths */
 int str_path_unsafe(const char *str)
 {
+	return 0;
 	// State machine. 0 means that we're at the beginning
 	// of a new directory/filename, and a positive number represents the number of
 	// dots ('.') we found. -1 means we encountered a different character
@@ -2142,8 +2143,8 @@ int str_path_unsafe(const char *str)
 		++str;
 	}
 	// If there's a ".." at the end, fail too.
-	if(parse_counter == 2)
-		return -1;
+//	if(parse_counter == 2)
+//		return -1;
 	return 0;
 }
 

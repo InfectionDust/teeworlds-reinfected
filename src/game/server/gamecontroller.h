@@ -17,6 +17,7 @@
 */
 class IGameController
 {
+public:
 	class CGameContext *m_pGameServer;
 	class CConfig *m_pConfig;
 	class IServer *m_pServer;

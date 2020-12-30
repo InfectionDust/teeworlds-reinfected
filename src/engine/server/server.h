@@ -253,7 +253,7 @@ public:
 
 	virtual void ChangeMap(const char *pMap);
 	const char *GetMapName();
-	int LoadMap(const char *pMapName);
+	virtual int LoadMap(const char *pMapName);
 
 	void InitRegister(CNetServer *pNetServer, IEngineMasterServer *pMasterServer, CConfig *pConfig, IConsole *pConsole);
 	void InitInterfaces(CConfig *pConfig, IConsole *pConsole, IGameServer *pGameServer, IEngineMap *pMap, IStorage *pStorage);

@@ -19,6 +19,12 @@ class CInfClassServer : public CServer
 {
 public:
 	CInfClassServer();
+	int LoadMap(const char *pMapName) override;
+
+	int GetTimeShiftUnit() const { return m_TimeShiftUnit; }
+
+protected:
+	int m_TimeShiftUnit;
 };
 
 #endif // GAME_SERVER_INFCLASS_MAP_H

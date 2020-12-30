@@ -14,6 +14,10 @@ public:
 
 	bool PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pPos);
 
+	void Tick() override;
+	bool DoWincheckMatch() override;
+
+	void Snap(int SnappingClient) override;
 	void OnCharacterSpawn(CCharacter *pChr) override;
 };
 

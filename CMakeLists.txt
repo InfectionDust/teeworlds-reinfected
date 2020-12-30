@@ -72,6 +72,8 @@ option(DOWNLOAD_GTEST "Download and compile GTest if not found" ${AUTO_DEPENDENC
 option(PREFER_BUNDLED_LIBS "Prefer bundled libraries over system libraries" ${AUTO_DEPENDENCIES_DEFAULT})
 option(DEV "Don't generate stuff necessary for packaging" OFF)
 
+#set(CLIENT OFF CACHE BOOL "Disable the client (makes no sense for a server project)")
+
 set(OpenGL_GL_PREFERENCE LEGACY)
 
 # Set the default build type to Release
@@ -1652,6 +1654,8 @@ set(SERVER_INF_CLASS_SRC
   src/game/server/infclass/infcplayer.h
   src/game/server/infclass/infcserver.cpp
   src/game/server/infclass/infcserver.h
+  src/game/server/infclass/mapconverter.cpp
+  src/game/server/infclass/mapconverter.h
 )
 
 set(GAME_GENERATED_SERVER
