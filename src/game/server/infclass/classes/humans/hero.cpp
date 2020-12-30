@@ -7,6 +7,16 @@ CInfClassHero::CInfClassHero()
 {
 }
 
+const char *CInfClassHero::GetClassName()
+{
+	return ClassName();
+}
+
+const char *CInfClassHero::GetClassDisplayName()
+{
+	return "Hero";
+}
+
 void CInfClassHero::SetupSkin()
 {
 	CInfClassHuman::SetupSkin(); // Reset to default

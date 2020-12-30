@@ -10,6 +10,8 @@ public:
 	CInfClassHunter();
 
 	static const char *ClassName() { return "hunter"; }
+	const char *GetClassName() override;
+	const char *GetClassDisplayName() override;
 	void SetupSkin() override;
 
 	void OnJumped(JumpType jumpType) override;

@@ -10,6 +10,8 @@ public:
 	CInfClassHero();
 
 	static const char *ClassName() { return "hero"; }
+	const char *GetClassName() override;
+	const char *GetClassDisplayName() override;
 	void SetupSkin() override;
 
 	void OnCharacterSpawned() override;
