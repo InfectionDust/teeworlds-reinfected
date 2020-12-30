@@ -46,6 +46,15 @@ public:
 	virtual void OnLaserFired();
 	virtual void OnNinjaFired();
 
+	struct HammerFireContext
+	{
+		vec2 ProjStartPos;
+		vec2 Direction;
+		float Radius = 0;
+	};
+
+	virtual void OnHammerHitCharacter(CInfClassCharacter *pTarget, HammerFireContext *pHitContext);
+
 protected:
 	explicit CInfClassPlayerClass();
 	CInfClassGameContext *GameContext() const;
