@@ -7,6 +7,7 @@
 #include <generated/server_data.h>
 #include <game/server/gamecontext.h>
 #include <game/server/gamecontroller.h>
+#include <game/server/infclass/infcgamecontext.h>
 #include <game/server/player.h>
 
 #include <game/server/entities/projectile.h>
@@ -40,8 +41,9 @@ static CInputCount CountInput(int Prev, int Cur)
 }
 
 
-CInfClassCharacter::CInfClassCharacter(CGameWorld *pWorld)
-	: CCharacter(pWorld)
+CInfClassCharacter::CInfClassCharacter(CInfClassGameContext *pContext)
+	: CCharacter(pContext->GameWorld())
+	, m_pContext(pContext)
 	, m_Grounded(false)
 {
 }
@@ -233,6 +235,11 @@ void CInfClassCharacter::OnCharacterSpawn()
 	IncreaseHealth(10);
 }
 
+vec2 CInfClassCharacter::GetDirection() const
+{
+	return normalize(vec2(m_LatestInput.m_TargetX, m_LatestInput.m_TargetY));
+}
+
 void CInfClassCharacter::EnableJump()
 {
 	m_Core.m_Jumped &= ~2;
@@ -254,6 +261,11 @@ void CInfClassCharacter::TakeAllWeapons()
 	{
 		weapon.m_Got = false;
 	}
+}
+
+void CInfClassCharacter::SetReloadTimer(int ReloadTimer)
+{
+	m_ReloadTimer = ReloadTimer;
 }
 
 void CInfClassCharacter::SetClass(CInfClassPlayerClass *pClass)

@@ -29,6 +29,11 @@ CInfClassGameContext::CInfClassGameContext()
 {
 }
 
+CGameWorld *CInfClassGameContext::GameWorld()
+{
+    return &m_World;
+}
+
 void CInfClassGameContext::OnInit()
 {
 	// init everything

@@ -16,6 +16,7 @@ public:
 	CInfClassGameContext();
 
 	CGameControllerInfClass *GetController() const { return m_pInfcGameController; }
+	CGameWorld *GameWorld();
 
 	void OnInit() override;
 	void OnConsoleInit() override;

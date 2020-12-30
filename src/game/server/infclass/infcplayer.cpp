@@ -25,7 +25,7 @@ void CInfClassPlayer::TryRespawn()
 		return;
 
 	m_Spawning = false;
-	m_pInfcCharacter = new CInfClassCharacter(&GameServer()->m_World);
+	m_pInfcCharacter = new CInfClassCharacter(m_pInfcGameContext);
 	m_pCharacter = m_pInfcCharacter;
 
 	SetCharacterClass(0);

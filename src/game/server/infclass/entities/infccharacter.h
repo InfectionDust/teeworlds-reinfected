@@ -3,28 +3,35 @@
 
 #include <game/server/entities/character.h>
 
+class CInfClassGameContext;
 class CInfClassPlayerClass;
 
 class CInfClassCharacter : public CCharacter
 {
 	MACRO_ALLOC_HEAP()
 public:
-	CInfClassCharacter(CGameWorld *pWorld);
+	CInfClassCharacter(CInfClassGameContext *pContext);
 
 	void Tick() override;
 	void FireWeapon() override;
 
 	virtual void OnCharacterSpawn();
 
+	vec2 GetDirection() const;
+
 	void EnableJump();
 	void SetActiveWeapon(int Weapon);
 	void SetLastWeapon(int Weapon);
 	void TakeAllWeapons();
+	void SetReloadTimer(int ReloadTimer);
 
 	void SetClass(CInfClassPlayerClass *pClass);
 
+	CInfClassGameContext *GameContext() const { return m_pContext; }
+
 protected:
-	CInfClassPlayerClass *m_pClass;
+	CInfClassGameContext *m_pContext = nullptr;
+	CInfClassPlayerClass *m_pClass = nullptr;
 	bool m_Grounded = false;
 };
 
