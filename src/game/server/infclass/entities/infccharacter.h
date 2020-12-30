@@ -19,6 +19,8 @@ public:
 
 	vec2 GetDirection() const;
 
+	bool IncreaseOverallHp(int Amount);
+
 	void EnableJump();
 	void SetActiveWeapon(int Weapon);
 	void SetLastWeapon(int Weapon);

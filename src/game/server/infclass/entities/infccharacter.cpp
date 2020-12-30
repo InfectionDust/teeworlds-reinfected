@@ -127,6 +127,24 @@ vec2 CInfClassCharacter::GetDirection() const
 	return normalize(vec2(m_LatestInput.m_TargetX, m_LatestInput.m_TargetY));
 }
 
+bool CInfClassCharacter::IncreaseOverallHp(int Amount)
+{
+	bool success = false;
+	if(m_Health < 10)
+	{
+		int healthDiff = 10-m_Health;
+		IncreaseHealth(Amount);
+		success = true;
+		Amount = Amount - healthDiff;
+	}
+	if(Amount > 0)
+	{
+		if (IncreaseArmor(Amount))
+			success = true;
+	}
+	return success;
+}
+
 void CInfClassCharacter::EnableJump()
 {
 	m_Core.m_Jumped &= ~2;
