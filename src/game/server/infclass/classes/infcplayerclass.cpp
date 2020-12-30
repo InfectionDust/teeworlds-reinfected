@@ -156,36 +156,27 @@ void CInfClassPlayerClass::OnHammerFired()
 {
 	GameServer()->CreateSound(GetPos(), SOUND_HAMMER_FIRE);
 
-	vec2 ProjStartPos = GetPos()+GetDirection()*GetProximityRadius()*0.75f;
+	HammerFireContext FireContext;
+	FireContext.ProjStartPos = GetPos()+GetDirection()*GetProximityRadius()*0.75f;
+	FireContext.Direction = GetDirection();
+	FireContext.Radius = GetProximityRadius()*0.5f;
 
 	CInfClassCharacter *apEnts[MAX_CLIENTS];
 	int Hits = 0;
-	float Radius = GetProximityRadius()*0.5f;
-	int Num = GameWorld()->FindEntities(ProjStartPos, Radius, (CEntity**)apEnts,
+	int Num = GameWorld()->FindEntities(FireContext.ProjStartPos, FireContext.Radius, (CEntity**)apEnts,
 										MAX_CLIENTS, CGameWorld::ENTTYPE_CHARACTER);
 
 	for (int i = 0; i < Num; ++i)
 	{
 		CInfClassCharacter *pTarget = apEnts[i];
 
-		if ((pTarget == m_pCharacter) || GameServer()->Collision()->IntersectLine(ProjStartPos, pTarget->GetPos(), nullptr, nullptr))
+		if (pTarget == m_pCharacter)
 			continue;
 
-		// set his velocity to fast upward (for now)
-		if(length(pTarget->GetPos()-ProjStartPos) > 0.0f)
-			GameServer()->CreateHammerHit(pTarget->GetPos()-normalize(pTarget->GetPos()-ProjStartPos)*Radius);
-		else
-			GameServer()->CreateHammerHit(ProjStartPos);
+		if (GameServer()->Collision()->IntersectLine(FireContext.ProjStartPos, pTarget->GetPos(), nullptr, nullptr))
+			continue;
 
-		vec2 Dir;
-		if (length(pTarget->GetPos() - GetPos()) > 0.0f)
-			Dir = normalize(pTarget->GetPos() - GetPos());
-		else
-			Dir = vec2(0.f, -1.f);
-
-		vec2 Force = vec2(0.f, -1.f) + normalize(Dir + vec2(0.f, -1.1f)) * 10.0f;
-		pTarget->TakeDamage(Force, Dir*-1, g_pData->m_Weapons.m_Hammer.m_pBase->m_Damage,
-			GetCID(), WEAPON_HAMMER);
+		OnHammerHitCharacter(pTarget, &FireContext);
 		Hits++;
 	}
 
@@ -256,4 +247,25 @@ void CInfClassPlayerClass::OnLaserFired()
 
 void CInfClassPlayerClass::OnNinjaFired()
 {
+}
+
+void CInfClassPlayerClass::OnHammerHitCharacter(CInfClassCharacter *pTarget, HammerFireContext *pHitContext)
+{
+	// set the target velocity to fast upward (for now)
+	if(length(pTarget->GetPos() - pHitContext->ProjStartPos) > 0.0f)
+	{
+		const vec2 HitEffectDirection = normalize(pTarget->GetPos() - pHitContext->ProjStartPos);
+		GameServer()->CreateHammerHit(pTarget->GetPos()-HitEffectDirection * pHitContext->Radius);
+	}
+	else
+		GameServer()->CreateHammerHit(pHitContext->ProjStartPos);
+
+	vec2 Dir;
+	if (length(pTarget->GetPos() - GetPos()) > 0.0f)
+		Dir = normalize(pTarget->GetPos() - GetPos());
+	else
+		Dir = vec2(0.f, -1.f);
+
+	vec2 Force = vec2(0.f, -1.f) + normalize(Dir + vec2(0.f, -1.1f)) * 10.0f;
+	pTarget->TakeDamage(Force, Dir*-1, g_pData->m_Weapons.m_Hammer.m_pBase->m_Damage, GetCID(), WEAPON_HAMMER);
 }
