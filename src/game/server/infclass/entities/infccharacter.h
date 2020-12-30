@@ -27,6 +27,7 @@ public:
 	void TakeAllWeapons();
 	void SetReloadTimer(int ReloadTimer);
 
+	CInfClassPlayerClass *GetClass() { return m_pClass; }
 	void SetClass(CInfClassPlayerClass *pClass);
 
 	CInfClassGameContext *GameContext() const { return m_pContext; }
