@@ -35,6 +35,9 @@ public:
 	virtual const char *GetClassName() = 0;
 	virtual const char *GetClassDisplayName() = 0;
 
+	virtual bool IsHuman() const = 0;
+	bool IsZombie() const;
+
 	virtual void SetupSkin();
 
 	// Events
