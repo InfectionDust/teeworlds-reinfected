@@ -145,6 +145,11 @@ bool CInfClassCharacter::IncreaseOverallHp(int Amount)
 	return success;
 }
 
+void CInfClassCharacter::GiveVelocity(const vec2 &ExtraVelocity)
+{
+	m_Core.m_Vel += ExtraVelocity;
+}
+
 void CInfClassCharacter::EnableJump()
 {
 	m_Core.m_Jumped &= ~2;
