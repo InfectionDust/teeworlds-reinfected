@@ -20,6 +20,7 @@ public:
 	vec2 GetDirection() const;
 
 	bool IncreaseOverallHp(int Amount);
+	void GiveVelocity(const vec2 &ExtraVelocity);
 
 	void EnableJump();
 	void SetActiveWeapon(int Weapon);
