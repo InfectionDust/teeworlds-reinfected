@@ -90,6 +90,11 @@ void CInfClassPlayerClass::SetCharacter(CInfClassCharacter *character)
 	m_pCharacter->SetClass(this);
 }
 
+bool CInfClassPlayerClass::IsInfected() const
+{
+	return !IsHuman();
+}
+
 void CInfClassPlayerClass::SetupSkin()
 {
 	for(int part = 0; part < NUM_SKINPARTS; part++)

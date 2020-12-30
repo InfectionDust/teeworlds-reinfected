@@ -9,6 +9,8 @@ class CInfClassHuman : public CInfClassPlayerClass
 {
 public:
 	explicit CInfClassHuman();
+
+	bool IsHuman() const final { return true; }
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_HUMAN_H

@@ -10,6 +10,8 @@ class CInfClassInfected : public CInfClassPlayerClass
 public:
 	CInfClassInfected();
 
+	bool IsHuman() const final { return false; }
+
 	void OnCharacterSpawned() override;
 };
 
