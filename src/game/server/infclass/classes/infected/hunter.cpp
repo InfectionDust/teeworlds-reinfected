@@ -8,6 +8,16 @@ CInfClassHunter::CInfClassHunter()
 {
 }
 
+const char *CInfClassHunter::GetClassName()
+{
+	return ClassName();
+}
+
+const char *CInfClassHunter::GetClassDisplayName()
+{
+	return "Hunter";
+}
+
 void CInfClassHunter::SetupSkin()
 {
 	CInfClassInfected::SetupSkin(); // Reset to default
