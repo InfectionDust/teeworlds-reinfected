@@ -22,6 +22,9 @@ public:
 
 	void TryRespawn() override;
 	void SyncSkin();
+
+	CInfClassPlayerClass *GetCharacterClass() { return m_pInfcPlayerClass; }
+	const CInfClassPlayerClass *GetCharacterClass() const { return m_pInfcPlayerClass; }
 	void SetCharacterClass(int ClassId);
 	void SetCharacterClass(CInfClassPlayerClass *pClass);
 
