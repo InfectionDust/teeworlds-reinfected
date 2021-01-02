@@ -1,6 +1,8 @@
 #include "slug.h"
 
 #include <game/server/infclass/entities/infccharacter.h>
+#include <game/server/infclass/entities/slug_slime.h>
+#include <game/server/infclass/infcgamecontext.h>
 
 CInfClassSlug::CInfClassSlug()
 	: CInfClassInfected()
@@ -44,4 +46,33 @@ void CInfClassSlug::SetupSkin()
 //	m_SkinInfo.m_aSkinPartColors[SKINPART_HANDS] = 65414; // Guess from 'feet'
 	m_SkinInfo.m_aSkinPartColors[SKINPART_FEET] = 65414; // Correct
 	//	m_SkinInfo.m_aSkinPartColors[SKINPART_EYES] = 65408; // Some color
+}
+
+void CInfClassSlug::OnHammerFired()
+{
+	CInfClassInfected::OnHammerFired();
+
+	vec2 CheckPos = GetPos() + GetDirection() * 64.0f;
+	if(GameServer()->Collision()->IntersectLine(GetPos(), CheckPos, 0x0, &CheckPos))
+	{
+		float Distance = 99999999.0f;
+		for(CSlugSlime* pSlime = (CSlugSlime*) GameWorld()->FindFirst(CSlugSlime::EntityId); pSlime; pSlime = (CSlugSlime*) pSlime->TypeNext())
+		{
+			if(distance(pSlime->GetPos(), GetPos()) < Distance)
+			{
+				Distance = distance(pSlime->GetPos(), GetPos());
+			}
+		}
+
+		if(Distance > 84.0f)
+		{
+			new CSlugSlime(GameContext(), CheckPos, GetCID());
+		}
+	}
+	// TODO: Process ShowAttackAnimation
+}
+
+void CInfClassSlug::OnSlimeEffect(int)
+{
+	// Slime has no effect on Slug characters
 }

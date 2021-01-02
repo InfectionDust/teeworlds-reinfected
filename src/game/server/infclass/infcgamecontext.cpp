@@ -6,6 +6,8 @@
 #include "classes/infected/slug.h"
 #include "classes/humans/hero.h"
 
+#include "entities/slug_slime.h"
+
 #include <engine/shared/config.h>
 #include <base/system.h>
 
@@ -42,6 +44,8 @@ void CInfClassGameContext::RegisterTypes()
 	RegisterInfClassClass<CInfClassSlug>();
 	RegisterInfClassClass<CInfClassHunter>();
 	RegisterInfClassClass<CInfClassHero>();
+
+	RegisterInfClassEntity<CSlugSlime>();
 }
 
 CGameWorld *CInfClassGameContext::GameWorld()

@@ -13,6 +13,10 @@ public:
 	const char *GetClassName() override;
 	const char *GetClassDisplayName() override;
 	void SetupSkin() override;
+
+	void OnHammerFired() override;
+
+	void OnSlimeEffect(int Owner) override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_SLUG_H

@@ -14,6 +14,11 @@ public:
 
 	void OnCharacterSpawned() override;
 	void OnHammerHitCharacter(CInfClassCharacter *pTarget, HammerFireContext *pHitContext) override;
+
+	void OnSlimeEffect(int Owner) override;
+
+protected:
+	int m_HealTick = 0;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_INFECTED_H

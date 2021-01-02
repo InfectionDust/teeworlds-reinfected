@@ -56,6 +56,8 @@ public:
 	virtual void OnLaserFired();
 	virtual void OnNinjaFired();
 
+	virtual void OnSlimeEffect(int Owner) = 0;
+
 	struct HammerFireContext
 	{
 		vec2 ProjStartPos;

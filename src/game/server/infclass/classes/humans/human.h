@@ -11,6 +11,8 @@ public:
 	explicit CInfClassHuman();
 
 	bool IsHuman() const final { return true; }
+
+	void OnSlimeEffect(int Owner) override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_HUMAN_H
