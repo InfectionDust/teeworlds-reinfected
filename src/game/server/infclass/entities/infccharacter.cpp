@@ -60,6 +60,9 @@ void CInfClassCharacter::Tick()
 		}
 		m_Grounded = grounded;
 	}
+	
+	if(m_pClass)
+		m_pClass->Tick();
 }
 
 void CInfClassCharacter::FireWeapon()

@@ -41,6 +41,7 @@ public:
 	virtual void SetupSkin();
 
 	// Events
+	virtual void Tick();
 	virtual void OnCharacterSpawned();
 	virtual void OnGrounded() { }
 	virtual void OnJumped(JumpType jumpType);

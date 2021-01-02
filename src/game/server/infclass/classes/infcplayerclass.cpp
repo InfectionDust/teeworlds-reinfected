@@ -121,6 +121,10 @@ void CInfClassPlayerClass::SetupSkin()
 	}
 }
 
+void CInfClassPlayerClass::Tick()
+{
+}
+
 void CInfClassPlayerClass::OnCharacterSpawned()
 {
 	m_pCharacter->TakeAllWeapons();
