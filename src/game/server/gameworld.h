@@ -5,6 +5,8 @@
 
 #include <game/gamecore.h>
 
+#include <vector>
+
 class CEntity;
 class CCharacter;
 
@@ -23,15 +25,18 @@ public:
 		ENTTYPE_PICKUP,
 		ENTTYPE_CHARACTER,
 		ENTTYPE_FLAG,
-		NUM_ENTTYPES
+		NUM_BUILTIN_ENTTYPES
 	};
+
+	static int NUM_ENTTYPES;
+	void ApplyEntitiesConfiguration();
 
 private:
 	void Reset();
 	void RemoveEntities();
 
 	CEntity *m_pNextTraverseEntity;
-	CEntity *m_apFirstEntityTypes[NUM_ENTTYPES];
+	std::vector<CEntity *> m_apFirstEntityTypes;
 
 	class CGameContext *m_pGameServer;
 	class CConfig *m_pConfig;

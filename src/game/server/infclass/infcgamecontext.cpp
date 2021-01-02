@@ -25,6 +25,13 @@ int CInfClassGameContext::RegisterInfClassClass()
 	return ClassId;
 }
 
+template<typename C>
+void RegisterInfClassEntity()
+{
+	C::EntityId = CGameWorld::NUM_ENTTYPES;
+	++CGameWorld::NUM_ENTTYPES;
+}
+
 CInfClassGameContext::CInfClassGameContext()
 {
 }
@@ -49,6 +56,7 @@ void CInfClassGameContext::OnInit()
 	m_pConfig = Kernel()->RequestInterface<IConfigManager>()->Values();
 	m_pConsole = Kernel()->RequestInterface<IConsole>();
 	m_World.SetGameServer(this);
+	m_World.ApplyEntitiesConfiguration();
 	m_Events.SetGameServer(this);
 	m_CommandManager.Init(m_pConsole, this, NewCommandHook, RemoveCommandHook);
 

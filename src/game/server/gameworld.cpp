@@ -7,6 +7,7 @@
 #include "gamecontroller.h"
 #include "gameworld.h"
 
+int CGameWorld::NUM_ENTTYPES = NUM_BUILTIN_ENTTYPES;
 
 //////////////////////////////////////////////////
 // game world
@@ -19,6 +20,12 @@ CGameWorld::CGameWorld()
 
 	m_Paused = false;
 	m_ResetRequested = false;
+	ApplyEntitiesConfiguration();
+}
+
+void CGameWorld::ApplyEntitiesConfiguration()
+{
+	m_apFirstEntityTypes.resize(NUM_ENTTYPES);
 	for(int i = 0; i < NUM_ENTTYPES; i++)
 		m_apFirstEntityTypes[i] = 0;
 }
