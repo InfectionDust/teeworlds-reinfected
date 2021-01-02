@@ -40,6 +40,8 @@ public:
 
 	virtual void SetupSkin();
 
+	void Poison(int Count, int From);
+
 	// Events
 	virtual void Tick();
 	virtual void OnCharacterSpawned();
@@ -78,6 +80,10 @@ protected:
 	explicit CInfClassPlayerClass();
 	SkinInfo m_SkinInfo;
 	CInfClassCharacter *m_pCharacter = nullptr;
+
+	int m_Poison = 0;
+	int m_PoisonTick = 0;
+	int m_PoisonFrom = 0;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_PLAYER_CLASS_H
