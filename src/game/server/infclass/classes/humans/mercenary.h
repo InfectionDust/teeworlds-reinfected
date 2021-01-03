@@ -14,6 +14,7 @@ public:
 	const char *GetClassDisplayName() override;
 
 	void OnCharacterSpawned() override;
+	void OnGunFired() override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_MERCENARY_H
