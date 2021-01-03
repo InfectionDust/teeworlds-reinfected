@@ -31,6 +31,8 @@ public:
 	CInfClassPlayer *GetPlayer(int ClientID);
 	CInfClassPlayerClass *CreateInfClass(int ClassId);
 
+	bool AreConnected(vec2 Pos1, vec2 Pos2, float Radius);
+
 protected:
 	using InfPlayerClassConstructor = CInfClassPlayerClass *();
 
