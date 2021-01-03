@@ -5,6 +5,7 @@
 #include "classes/infected/hunter.h"
 #include "classes/infected/slug.h"
 #include "classes/humans/hero.h"
+#include "classes/humans/mercenary.h"
 
 #include "entities/slug_slime.h"
 
@@ -43,7 +44,9 @@ void CInfClassGameContext::RegisterTypes()
 {
 	RegisterInfClassClass<CInfClassSlug>();
 	RegisterInfClassClass<CInfClassHunter>();
+
 	RegisterInfClassClass<CInfClassHero>();
+	RegisterInfClassClass<CInfClassMercenary>();
 
 	RegisterInfClassEntity<CSlugSlime>();
 }
