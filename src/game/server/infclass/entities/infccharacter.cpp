@@ -153,6 +153,40 @@ void CInfClassCharacter::GiveVelocity(const vec2 &ExtraVelocity)
 	m_Core.m_Vel += ExtraVelocity;
 }
 
+void CInfClassCharacter::SaturateVelocity(vec2 Force, float MaxSpeed)
+{
+	if(length(Force) < 0.00001)
+		return;
+	
+	float Speed = length(m_Core.m_Vel);
+	vec2 VelDir = normalize(m_Core.m_Vel);
+	if(Speed < 0.00001)
+	{
+		VelDir = normalize(Force);
+	}
+	vec2 OrthoVelDir = vec2(-VelDir.y, VelDir.x);
+	float VelDirFactor = dot(Force, VelDir);
+	float OrthoVelDirFactor = dot(Force, OrthoVelDir);
+	
+	vec2 NewVel = m_Core.m_Vel;
+	if(Speed < MaxSpeed || VelDirFactor < 0.0f)
+	{
+		NewVel += VelDir*VelDirFactor;
+		float NewSpeed = length(NewVel);
+		if(NewSpeed > MaxSpeed)
+		{
+			if(VelDirFactor > 0.f)
+				NewVel = VelDir*MaxSpeed;
+			else
+				NewVel = -VelDir*MaxSpeed;
+		}
+	}
+	
+	NewVel += OrthoVelDir * OrthoVelDirFactor;
+	
+	m_Core.m_Vel = NewVel;
+}
+
 void CInfClassCharacter::EnableJump()
 {
 	m_Core.m_Jumped &= ~2;

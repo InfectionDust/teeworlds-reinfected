@@ -21,6 +21,7 @@ public:
 
 	bool IncreaseOverallHp(int Amount);
 	void GiveVelocity(const vec2 &ExtraVelocity);
+	void SaturateVelocity(vec2 Force, float MaxSpeed);
 
 	void EnableJump();
 	void SetActiveWeapon(int Weapon);
