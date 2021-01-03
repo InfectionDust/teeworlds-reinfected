@@ -3,6 +3,7 @@
 #include "infcplayer.h"
 
 #include "classes/infected/hunter.h"
+#include "classes/infected/slug.h"
 #include "classes/humans/hero.h"
 
 #include <engine/shared/config.h>
@@ -38,6 +39,7 @@ CInfClassGameContext::CInfClassGameContext()
 
 void CInfClassGameContext::RegisterTypes()
 {
+	RegisterInfClassClass<CInfClassSlug>();
 	RegisterInfClassClass<CInfClassHunter>();
 	RegisterInfClassClass<CInfClassHero>();
 }
