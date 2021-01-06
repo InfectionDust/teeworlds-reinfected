@@ -15,6 +15,7 @@ public:
 	void SetupSkin() override;
 
 	void OnCharacterSpawned() override;
+	void OnHammerFired() override;
 	void OnGunFired() override;
 };
 

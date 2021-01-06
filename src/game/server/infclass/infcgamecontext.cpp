@@ -7,6 +7,7 @@
 #include "classes/humans/hero.h"
 #include "classes/humans/mercenary.h"
 
+#include "entities/merc_bomb.h"
 #include "entities/slug_slime.h"
 
 #include <engine/shared/config.h>
@@ -48,6 +49,8 @@ void CInfClassGameContext::RegisterTypes()
 	RegisterInfClassClass<CInfClassHero>();
 	RegisterInfClassClass<CInfClassMercenary>();
 
+	// Entities
+	RegisterInfClassEntity<CMercenaryBomb>();
 	RegisterInfClassEntity<CSlugSlime>();
 }
 

@@ -1650,6 +1650,8 @@ set(SERVER_INF_CLASS_SRC
   src/game/server/infclass/entities/infccharacter.h
   src/game/server/infclass/entities/infcentity.cpp
   src/game/server/infclass/entities/infcentity.h
+  src/game/server/infclass/entities/merc_bomb.cpp
+  src/game/server/infclass/entities/merc_bomb.h
   src/game/server/infclass/entities/slug_slime.cpp
   src/game/server/infclass/entities/slug_slime.h
   src/game/server/infclass/infcgamecontext.cpp

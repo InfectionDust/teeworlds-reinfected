@@ -1,7 +1,9 @@
 #include "mercenary.h"
 
+#include <engine/shared/config.h>
 #include <game/server/entities/projectile.h>
 #include <game/server/infclass/entities/infccharacter.h>
+#include <game/server/infclass/entities/merc_bomb.h>
 #include <game/server/infclass/infcgamecontext.h>
 
 CInfClassMercenary::CInfClassMercenary()
@@ -45,6 +47,40 @@ void CInfClassMercenary::OnCharacterSpawned()
 
 	m_pCharacter->SetLastWeapon(WEAPON_HAMMER);
 	m_pCharacter->SetActiveWeapon(WEAPON_GUN);
+}
+
+void CInfClassMercenary::OnHammerFired()
+{
+	if (!Config()->m_InfMercLove)
+		return;
+
+	CMercenaryBomb* pCurrentBomb = nullptr;
+	for(CMercenaryBomb *pBomb = (CMercenaryBomb*) GameWorld()->FindFirst(CMercenaryBomb::EntityId); pBomb; pBomb = (CMercenaryBomb*) pBomb->TypeNext())
+	{
+		if(pBomb->GetOwner() == GetCID())
+		{
+			pCurrentBomb = pBomb;
+			break;
+		}
+	}
+
+	if(pCurrentBomb)
+	{
+		if(pCurrentBomb->ReadyToExplode() || distance(pCurrentBomb->GetPos(), GetPos()) > 80.0f)
+			pCurrentBomb->Explode();
+		else
+		{
+			pCurrentBomb->IncreaseDamage(WEAPON_HAMMER);
+			GameServer()->CreateSound(GetPos(), SOUND_PICKUP_ARMOR);
+		}
+	}
+	else
+	{
+		new CMercenaryBomb(GameContext(), GetPos(), GetCID());
+		GameServer()->CreateSound(GetPos(), SOUND_PICKUP_ARMOR);
+	}
+
+	m_pCharacter->SetReloadTimer(Server()->TickSpeed()/4);
 }
 
 void CInfClassMercenary::OnGunFired()
