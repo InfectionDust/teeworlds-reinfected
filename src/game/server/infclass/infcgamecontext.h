@@ -23,6 +23,8 @@ public:
 	void OnConsoleInit() override;
 
 	void OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID) override;
+	void OnTick() override;
+	void OnSnap(int ClientID) override;
 
 	void OnClientConnected(int ClientID, bool AsSpec) override;
 
@@ -33,6 +35,8 @@ public:
 
 	bool AreConnected(vec2 Pos1, vec2 Pos2, float Radius);
 
+	void CreateLaserDotEvent(vec2 Pos0, vec2 Pos1, int LifeSpan);
+
 protected:
 	using InfPlayerClassConstructor = CInfClassPlayerClass *();
 
@@ -40,6 +44,15 @@ protected:
 	int RegisterInfClassClass();
 
 	static void ConSetClass(IConsole::IResult *pResult, void *pUserData);
+
+	struct LaserDotState
+	{
+		vec2 m_Pos0;
+		vec2 m_Pos1;
+		int m_LifeSpan;
+		int m_SnapID;
+	};
+	array<LaserDotState> m_LaserDots;
 
 	CGameControllerInfClass *m_pInfcGameController = nullptr;
 	std::vector<InfPlayerClassConstructor*> m_ClassConstructors;

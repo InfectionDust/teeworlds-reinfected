@@ -139,6 +139,57 @@ void CInfClassGameContext::OnMessage(int MsgID, CUnpacker *pUnpacker, int Client
 	CGameContext::OnMessage(MsgID, pUnpacker, ClientID);
 }
 
+void CInfClassGameContext::OnTick()
+{
+	CGameContext::OnTick();
+
+	//Clean old dots
+	int DotIter;
+
+	DotIter = 0;
+	while(DotIter < m_LaserDots.size())
+	{
+		m_LaserDots[DotIter].m_LifeSpan--;
+		if(m_LaserDots[DotIter].m_LifeSpan <= 0)
+		{
+			Server()->SnapFreeID(m_LaserDots[DotIter].m_SnapID);
+			m_LaserDots.remove_index(DotIter);
+		}
+		else
+			DotIter++;
+	}
+}
+
+void CInfClassGameContext::OnSnap(int ClientID)
+{
+	//Snap laser dots
+	for(int i=0; i < m_LaserDots.size(); i++)
+	{
+		if(ClientID >= 0)
+		{
+			vec2 CheckPos = (m_LaserDots[i].m_Pos0 + m_LaserDots[i].m_Pos1)*0.5f;
+			float dx = m_apPlayers[ClientID]->m_ViewPos.x-CheckPos.x;
+			float dy = m_apPlayers[ClientID]->m_ViewPos.y-CheckPos.y;
+			if(absolute(dx) > 1000.0f || absolute(dy) > 800.0f)
+				continue;
+			if(distance(m_apPlayers[ClientID]->m_ViewPos, CheckPos) > 1100.0f)
+				continue;
+		}
+
+		CNetObj_Laser *pObj = static_cast<CNetObj_Laser *>(Server()->SnapNewItem(NETOBJTYPE_LASER, m_LaserDots[i].m_SnapID, sizeof(CNetObj_Laser)));
+		if(pObj)
+		{
+			pObj->m_X = (int)m_LaserDots[i].m_Pos1.x;
+			pObj->m_Y = (int)m_LaserDots[i].m_Pos1.y;
+			pObj->m_FromX = (int)m_LaserDots[i].m_Pos0.x;
+			pObj->m_FromY = (int)m_LaserDots[i].m_Pos0.y;
+			pObj->m_StartTick = Server()->Tick();
+		}
+	}
+
+	CGameContext::OnSnap(ClientID);
+}
+
 void CInfClassGameContext::OnClientConnected(int ClientID, bool AsSpec)
 {
 	if(m_apPlayers[ClientID])
@@ -253,6 +304,17 @@ bool CInfClassGameContext::AreConnected(vec2 Pos1, vec2 Pos2, float Radius)
 
 	delete[] pMap;
 	return false;
+}
+
+void CInfClassGameContext::CreateLaserDotEvent(vec2 Pos0, vec2 Pos1, int LifeSpan)
+{
+	LaserDotState State;
+	State.m_Pos0 = Pos0;
+	State.m_Pos1 = Pos1;
+	State.m_LifeSpan = LifeSpan;
+	State.m_SnapID = Server()->SnapNewID();
+
+	m_LaserDots.add(State);
 }
 
 void CInfClassGameContext::ConSetClass(IConsole::IResult *pResult, void *pUserData)
