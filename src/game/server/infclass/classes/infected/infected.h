@@ -16,6 +16,7 @@ public:
 	void OnHammerHitCharacter(CInfClassCharacter *pTarget, HammerFireContext *pHitContext) override;
 
 	void OnSlimeEffect(int Owner) override;
+	void OnExplosion(const CInfCExplosionContext &context, bool *pHit) override;
 
 protected:
 	int m_HealTick = 0;

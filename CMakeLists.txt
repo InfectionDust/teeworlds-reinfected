@@ -1654,6 +1654,7 @@ set(SERVER_INF_CLASS_SRC
   src/game/server/infclass/entities/merc_bomb.h
   src/game/server/infclass/entities/slug_slime.cpp
   src/game/server/infclass/entities/slug_slime.h
+  src/game/server/infclass/infc_explosion.h
   src/game/server/infclass/infcgamecontext.cpp
   src/game/server/infclass/infcgamecontext.h
   src/game/server/infclass/infcgamecontroller.cpp

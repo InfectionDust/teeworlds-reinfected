@@ -13,3 +13,7 @@ void CInfCEntity::Reset()
 {
 	GameServer()->m_World.DestroyEntity(this);
 }
+
+void CInfCEntity::OnExplosion(const CInfCExplosionContext &)
+{
+}

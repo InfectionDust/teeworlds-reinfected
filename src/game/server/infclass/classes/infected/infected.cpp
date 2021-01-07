@@ -63,3 +63,7 @@ void CInfClassInfected::OnSlimeEffect(int)
 		m_pCharacter->IncreaseHealth(1);
 	}
 }
+
+void CInfClassInfected::OnExplosion(const CInfCExplosionContext &context, bool *pHit)
+{
+}

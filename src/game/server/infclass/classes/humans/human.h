@@ -15,6 +15,7 @@ public:
 	bool IsFullAutoFireWeapon(int Weapon) const;
 
 	void OnSlimeEffect(int Owner) override;
+	void OnExplosion(const CInfCExplosionContext &context, bool *pHit) override;
 };
 
 #endif // GAME_SERVER_INFCLASS_CLASSES_HUMAN_H

@@ -7,6 +7,7 @@
 class CConfig;
 class CGameContext;
 class CGameWorld;
+class CInfCExplosionContext;
 class CInfClassCharacter;
 class CInfClassGameContext;
 class CInfClassPlayer;
@@ -58,6 +59,7 @@ public:
 	virtual void OnNinjaFired();
 
 	virtual void OnSlimeEffect(int Owner) = 0;
+	virtual void OnExplosion(const CInfCExplosionContext &context, bool *pHit) = 0;
 
 	struct HammerFireContext
 	{

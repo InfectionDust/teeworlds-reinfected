@@ -25,3 +25,7 @@ void CInfClassHuman::OnSlimeEffect(int Owner)
 	int Count = Config()->m_InfSlimePoisonDuration;
 	Poison(Count, Owner);
 }
+
+void CInfClassHuman::OnExplosion(const CInfCExplosionContext &context, bool *pHit)
+{
+}

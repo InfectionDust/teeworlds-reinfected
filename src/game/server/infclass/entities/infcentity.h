@@ -5,6 +5,7 @@
 
 #include <game/server/entity.h>
 
+class CInfCExplosionContext;
 class CInfClassGameContext;
 
 class CInfCEntity : public CEntity
@@ -16,6 +17,8 @@ public:
 	int GetOwner() const { return m_Owner; }
 
 	void Reset() override;
+
+	virtual void OnExplosion(const CInfCExplosionContext &context);
 
 protected:
 	CInfClassGameContext *m_pContext = nullptr;
