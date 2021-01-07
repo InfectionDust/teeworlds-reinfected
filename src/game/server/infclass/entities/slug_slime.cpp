@@ -4,6 +4,7 @@
 
 #include <engine/shared/config.h>
 #include <game/server/infclass/classes/infcplayerclass.h>
+#include <game/server/infclass/entities/growing_explosion.h>
 #include <game/server/infclass/entities/infccharacter.h>
 #include <game/server/infclass/infcgamecontext.h>
 
@@ -42,4 +43,12 @@ void CSlugSlime::Tick()
 	}
 
 	m_LifeSpan--;
+}
+
+void CSlugSlime::OnExplosion(const CInfCExplosionContext &context)
+{
+	if(context.Effect == ExplosionEffect::FreezeInfected)
+	{
+		Reset();
+	}
 }

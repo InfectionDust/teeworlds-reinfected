@@ -10,6 +10,8 @@ class CInfClassCharacter : public CCharacter
 {
 	MACRO_ALLOC_HEAP()
 public:
+	static int EntityId;
+
 	CInfClassCharacter(CInfClassGameContext *pContext);
 
 	void Tick() override;

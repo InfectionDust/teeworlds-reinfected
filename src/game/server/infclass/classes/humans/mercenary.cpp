@@ -44,6 +44,8 @@ void CInfClassMercenary::OnCharacterSpawned()
 
 	m_pCharacter->GiveWeapon(WEAPON_HAMMER, -1);
 	m_pCharacter->GiveWeapon(WEAPON_GUN, 10);
+	m_pCharacter->GiveWeapon(WEAPON_GRENADE, 10);
+	m_pCharacter->GiveWeapon(WEAPON_LASER, 10);
 
 	m_pCharacter->SetLastWeapon(WEAPON_HAMMER);
 	m_pCharacter->SetActiveWeapon(WEAPON_GUN);

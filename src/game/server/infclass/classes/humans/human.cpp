@@ -1,6 +1,10 @@
 #include "human.h"
 
 #include <engine/shared/config.h>
+#include <game/server/infclass/infc_explosion.h>
+#include <game/server/infclass/entities/infccharacter.h>
+#include <game/server/infclass/infcgamecontext.h>
+#include <generated/protocol.h>
 
 CInfClassHuman::CInfClassHuman()
 	: CInfClassPlayerClass()
@@ -28,4 +32,10 @@ void CInfClassHuman::OnSlimeEffect(int Owner)
 
 void CInfClassHuman::OnExplosion(const CInfCExplosionContext &context, bool *pHit)
 {
+	if(context.Effect == ExplosionEffect::HealHumans)
+	{
+		m_pCharacter->IncreaseArmor(1);
+		GameContext()->SendEmoticon(GetCID(), EMOTICON_EYES);
+		*pHit = true;
+	}
 }

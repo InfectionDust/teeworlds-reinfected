@@ -37,6 +37,7 @@ static CInputCount CountInput(int Prev, int Cur)
 	return c;
 }
 
+int CInfClassCharacter::EntityId = CGameWorld::ENTTYPE_CHARACTER;
 
 CInfClassCharacter::CInfClassCharacter(CInfClassGameContext *pContext)
 	: CCharacter(pContext->GameWorld())

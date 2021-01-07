@@ -59,6 +59,7 @@ void CMercenaryBomb::Tick()
 	{
 		if(p->GetClass()->IsHuman())
 			continue;
+		// TODO: if(!p->GetClass()->CanDie()) continue;
 
 		float Len = distance(p->GetPos(), m_Pos);
 		if(Len < p->GetProximityRadius()+80.0f)

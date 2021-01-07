@@ -16,6 +16,8 @@ public:
 
 	void Tick() override;
 
+	void OnExplosion(const CInfCExplosionContext &context) override;
+
 protected:
 	int m_LifeSpan;
 };

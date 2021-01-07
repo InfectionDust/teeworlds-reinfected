@@ -1,6 +1,7 @@
 #include "infected.h"
 
 #include <engine/shared/config.h>
+#include <game/server/infclass/entities/growing_explosion.h>
 #include <game/server/infclass/entities/infccharacter.h>
 #include <game/server/infclass/infc_explosion.h>
 #include <game/server/infclass/infcgamecontext.h>
@@ -74,9 +75,29 @@ void CInfClassInfected::OnExplosion(const CInfCExplosionContext &context, bool *
 {
 	switch(context.Effect)
 	{
-		case ExplosionEffect::Invalid:
-		case ExplosionEffect::BoomInfected:
+		case ExplosionEffect::FreezeInfected:
+			// TODO: m_pCharacter->Freeze(3.0f, m_Owner, FREEZEREASON_FLASH);
+			GameServer()->SendEmoticon(GetCID(), EMOTICON_QUESTION);
 			break;
+		case ExplosionEffect::PoisonInfected:
+			m_pCharacter->GetClass()->Poison(Config()->m_InfPoisonDamage, context.From);
+			GameServer()->SendEmoticon(GetCID(), EMOTICON_DROP);
+			break;
+		case ExplosionEffect::BoomInfected:
+		{
+			break;
+		}
+		case ExplosionEffect::ElectricInfected:
+		{
+			const int MaxGrowing = context.MaxGrowing;
+			int tick = Server()->Tick();
+			int Damage = 5+20*((float)(MaxGrowing - min(tick - context.StartTick, MaxGrowing)))/(context.MaxGrowing);
+			vec2 Source = vec2(0, 0);
+			m_pCharacter->TakeDamage(normalize(GetPos() - context.SeedPos)*10.0f, Source, Damage, context.From, WEAPON_HAMMER);
+			break;
+		}
+		default:
+			return;
 	}
 
 	*pHit = true;

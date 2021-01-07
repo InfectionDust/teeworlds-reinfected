@@ -74,6 +74,26 @@ CGrowingExplosion::CGrowingExplosion(CInfClassGameContext *pGameContext, vec2 Po
 		case ExplosionEffect::Invalid:
 		case ExplosionEffect::BoomInfected:
 			break;
+		case ExplosionEffect::FreezeInfected:
+			if(random_prob(0.1f))
+			{
+				GameServer()->CreateHammerHit(m_SeedPos);
+			}
+			break;
+		case ExplosionEffect::PoisonInfected:
+			if(random_prob(0.1f))
+			{
+				GameServer()->CreateDeath(m_SeedPos, m_Owner);
+			}
+			break;
+		case ExplosionEffect::ElectricInfected:
+			{
+				//~ GameServer()->CreateHammerHit(m_SeedPos);
+
+				vec2 EndPoint = m_SeedPos + vec2(-16.0f + random_float()*32.0f, -16.0f + random_float()*32.0f);
+				m_pGrowingMapVec[m_MaxGrowing*m_GrowingMap_Length+m_MaxGrowing] = EndPoint;
+			}
+			break;
 	}
 }
 
@@ -131,10 +151,70 @@ void CGrowingExplosion::Tick()
 					{
 						case ExplosionEffect::Invalid:
 							break;
+						case ExplosionEffect::FreezeInfected:
+							if(random_prob(0.1f))
+							{
+								GameServer()->CreateHammerHit(TileCenter);
+							}
+							break;
+						case ExplosionEffect::PoisonInfected:
+							if(random_prob(0.1f))
+							{
+								GameServer()->CreateDeath(TileCenter, m_Owner);
+							}
+							break;
+						case ExplosionEffect::HealHumans:
+							if(random_prob(0.1f))
+							{
+								GameServer()->CreateDeath(TileCenter, m_Owner);
+							}
+							break;
 						case ExplosionEffect::BoomInfected:
 							if (random_prob(0.2f))
 							{
 								GameServer()->CreateExplosion(TileCenter, m_Owner, WEAPON_HAMMER, 6);
+							}
+							break;
+						case ExplosionEffect::ElectricInfected:
+							{
+								vec2 EndPoint = m_SeedPos + vec2(32.0f*(i-m_MaxGrowing) - 16.0f + random_float()*32.0f, 32.0f*(j-m_MaxGrowing) - 16.0f + random_float()*32.0f);
+								m_pGrowingMapVec[j*m_GrowingMap_Length+i] = EndPoint;
+
+								int NumPossibleStartPoint = 0;
+								vec2 PossibleStartPoint[4];
+
+								if(FromLeft)
+								{
+									PossibleStartPoint[NumPossibleStartPoint] = m_pGrowingMapVec[j*m_GrowingMap_Length+i-1];
+									NumPossibleStartPoint++;
+								}
+								if(FromRight)
+								{
+									PossibleStartPoint[NumPossibleStartPoint] = m_pGrowingMapVec[j*m_GrowingMap_Length+i+1];
+									NumPossibleStartPoint++;
+								}
+								if(FromTop)
+								{
+									PossibleStartPoint[NumPossibleStartPoint] = m_pGrowingMapVec[(j-1)*m_GrowingMap_Length+i];
+									NumPossibleStartPoint++;
+								}
+								if(FromBottom)
+								{
+									PossibleStartPoint[NumPossibleStartPoint] = m_pGrowingMapVec[(j+1)*m_GrowingMap_Length+i];
+									NumPossibleStartPoint++;
+								}
+
+								if(NumPossibleStartPoint > 0)
+								{
+									int randNb = random_int() % NumPossibleStartPoint;
+									vec2 StartPoint = PossibleStartPoint[randNb];
+									GameContext()->CreateLaserDotEvent(StartPoint, EndPoint, Server()->TickSpeed()/6);
+								}
+
+								if(random_prob(0.1f))
+								{
+									GameServer()->CreateSound(EndPoint, SOUND_LASER_BOUNCE);
+								}
 							}
 							break;
 					}
@@ -148,8 +228,9 @@ void CGrowingExplosion::Tick()
 		switch(m_ExplosionEffect)
 		{
 			case ExplosionEffect::Invalid:
-				break;
 			case ExplosionEffect::BoomInfected:
+				break;
+			case ExplosionEffect::PoisonInfected:
 				if(random_prob(0.1f))
 				{
 					GameServer()->CreateSound(m_Pos, SOUND_PLAYER_DIE);
@@ -179,6 +260,18 @@ void CGrowingExplosion::Tick()
 		if(Hit)
 		{
 			m_Hit[pClass->GetCID()] = true;
+		}
+	}
+
+	// clean slug slime
+	if (m_ExplosionEffect == ExplosionEffect::FreezeInfected)
+	{
+		for(CSlugSlime *e = (CSlugSlime*) GameWorld()->FindFirst(CSlugSlime::EntityId); e; e = (CSlugSlime *)e->TypeNext())
+		{
+			if(!IsInRadius(e))
+				continue;
+
+			e->Reset();
 		}
 	}
 }

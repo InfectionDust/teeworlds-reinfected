@@ -7,7 +7,11 @@
 enum class ExplosionEffect
 {
 	Invalid,
+	FreezeInfected,
+	PoisonInfected,
+	ElectricInfected,
 	BoomInfected,
+	HealHumans,
 };
 
 class CInfCExplosionContext
