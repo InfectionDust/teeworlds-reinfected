@@ -2,6 +2,7 @@
 
 #include <engine/shared/config.h>
 #include <game/server/infclass/entities/infccharacter.h>
+#include <game/server/infclass/infc_explosion.h>
 #include <game/server/infclass/infcgamecontext.h>
 #include <generated/server_data.h>
 
@@ -66,4 +67,12 @@ void CInfClassInfected::OnSlimeEffect(int)
 
 void CInfClassInfected::OnExplosion(const CInfCExplosionContext &context, bool *pHit)
 {
+	switch(context.Effect)
+	{
+		case ExplosionEffect::Invalid:
+		case ExplosionEffect::BoomInfected:
+			break;
+	}
+
+	*pHit = true;
 }

@@ -7,6 +7,7 @@
 enum class ExplosionEffect
 {
 	Invalid,
+	BoomInfected,
 };
 
 class CInfCExplosionContext
