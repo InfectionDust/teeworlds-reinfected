@@ -30,6 +30,7 @@ public:
 	void OnPostSnap() override;
 
 	void OnClientConnected(int ClientID, bool AsSpec) override;
+	void OnClientEnter(int ClientID) override;
 
 	void AnnounceSkinChange(int ClientID);
 	void SendChatTarget(int To, const char *pText);
@@ -52,6 +53,7 @@ protected:
 	int RegisterInfClassClass();
 
 	static void ConSetClass(IConsole::IResult *pResult, void *pUserData);
+	static void ConWitch(IConsole::IResult *pResult, void *pUserData);
 
 	void LoadModEntities();
 
