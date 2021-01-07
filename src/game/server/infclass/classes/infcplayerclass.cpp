@@ -121,6 +121,11 @@ void CInfClassPlayerClass::SetupSkin()
 	}
 }
 
+int CInfClassPlayerClass::GetNormalEmote() const
+{
+	return EMOTE_NORMAL;
+}
+
 void CInfClassPlayerClass::Poison(int Count, int From)
 {
 	if(m_Poison <= 0)

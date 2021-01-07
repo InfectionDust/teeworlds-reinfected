@@ -65,6 +65,22 @@ void CInfClassCharacter::Tick()
 		m_pClass->Tick();
 }
 
+void CInfClassCharacter::Snap(int SnappingClient)
+{
+	// override default emote
+	if (m_EmoteStop < Server()->Tick())
+	{
+		int OverrideNormalEmote = m_pClass->GetNormalEmote();
+
+		if(250 - ((Server()->Tick() - m_LastAction)%(250)) < 5)
+			OverrideNormalEmote = EMOTE_BLINK;
+
+		SetEmote(OverrideNormalEmote, Server()->Tick());
+	}
+
+	CCharacter::Snap(SnappingClient);
+}
+
 void CInfClassCharacter::FireWeapon()
 {
 	if(m_ReloadTimer != 0)

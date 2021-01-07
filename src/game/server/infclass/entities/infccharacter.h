@@ -13,6 +13,7 @@ public:
 	CInfClassCharacter(CInfClassGameContext *pContext);
 
 	void Tick() override;
+	void Snap(int SnappingClient) override;
 	void FireWeapon() override;
 
 	virtual void OnCharacterSpawn();

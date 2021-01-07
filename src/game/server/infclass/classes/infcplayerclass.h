@@ -40,6 +40,7 @@ public:
 	bool IsZombie() const;
 
 	virtual void SetupSkin();
+	virtual int GetNormalEmote() const;
 
 	void Poison(int Count, int From);
 
