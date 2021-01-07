@@ -11,6 +11,7 @@ public:
 	CInfClassInfected();
 
 	bool IsHuman() const final { return false; }
+	int GetNormalEmote() const override;
 
 	void OnCharacterSpawned() override;
 	void OnHammerHitCharacter(CInfClassCharacter *pTarget, HammerFireContext *pHitContext) override;

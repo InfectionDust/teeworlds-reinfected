@@ -11,6 +11,11 @@ CInfClassInfected::CInfClassInfected()
 {
 }
 
+int CInfClassInfected::GetNormalEmote() const
+{
+	return EMOTE_ANGRY;
+}
+
 void CInfClassInfected::OnCharacterSpawned()
 {
 	CInfClassPlayerClass::OnCharacterSpawned();
