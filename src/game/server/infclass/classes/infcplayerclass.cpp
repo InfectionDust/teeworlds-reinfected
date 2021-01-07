@@ -167,6 +167,11 @@ void CInfClassPlayerClass::OnJumped(JumpType)
 {
 }
 
+bool CInfClassPlayerClass::IsFullAutoFireWeapon(int) const
+{
+	return false;
+}
+
 void CInfClassPlayerClass::OnWeaponFired(int Weapon)
 {
 	switch(Weapon)

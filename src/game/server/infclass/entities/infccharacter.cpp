@@ -72,10 +72,7 @@ void CInfClassCharacter::FireWeapon()
 
 	DoWeaponSwitch();
 
-	bool FullAuto = false;
-	if(m_ActiveWeapon == WEAPON_GRENADE || m_ActiveWeapon == WEAPON_SHOTGUN || m_ActiveWeapon == WEAPON_LASER)
-		FullAuto = true;
-
+	bool FullAuto = m_pClass->IsFullAutoFireWeapon(m_ActiveWeapon);
 
 	// check if we gonna fire
 	bool WillFire = false;

@@ -47,6 +47,7 @@ public:
 	virtual void OnCharacterSpawned();
 	virtual void OnGrounded() { }
 	virtual void OnJumped(JumpType jumpType);
+	virtual bool IsFullAutoFireWeapon(int Weapon) const;
 	virtual void OnWeaponFired(int Weapon);
 
 	virtual void OnHammerFired();

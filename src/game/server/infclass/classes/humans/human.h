@@ -12,6 +12,8 @@ public:
 
 	bool IsHuman() const final { return true; }
 
+	bool IsFullAutoFireWeapon(int Weapon) const;
+
 	void OnSlimeEffect(int Owner) override;
 };
 
