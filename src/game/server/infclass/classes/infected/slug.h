@@ -14,6 +14,8 @@ public:
 	const char *GetClassDisplayName() override;
 	void SetupSkin() override;
 
+	bool IsFullAutoFireWeapon(int Weapon) const;
+
 	void OnHammerFired() override;
 
 	void OnSlimeEffect(int Owner) override;

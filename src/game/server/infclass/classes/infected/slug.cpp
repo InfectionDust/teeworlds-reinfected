@@ -48,6 +48,16 @@ void CInfClassSlug::SetupSkin()
 	//	m_SkinInfo.m_aSkinPartColors[SKINPART_EYES] = 65408; // Some color
 }
 
+bool CInfClassSlug::IsFullAutoFireWeapon(int Weapon) const
+{
+	switch (Weapon) {
+		case WEAPON_HAMMER:
+			return true;
+		default:
+			return false;
+	}
+}
+
 void CInfClassSlug::OnHammerFired()
 {
 	CInfClassInfected::OnHammerFired();
