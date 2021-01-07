@@ -222,6 +222,16 @@ void CInfClassGameContext::AnnounceSkinChange(int ClientID)
 	}
 }
 
+void CInfClassGameContext::SendChatTarget(int To, const char *pText)
+{
+	CNetMsg_Sv_Chat Msg;
+	Msg.m_Mode = CHAT_ALL;
+	Msg.m_ClientID = -1;
+	Msg.m_pMessage = pText;
+	Msg.m_TargetID = To;
+	Server()->SendPackMsg(&Msg, MSGFLAG_VITAL, To);
+}
+
 CInfClassPlayer *CInfClassGameContext::GetPlayer(int ClientID)
 {
 	return static_cast<CInfClassPlayer*>(m_apPlayers[ClientID]);

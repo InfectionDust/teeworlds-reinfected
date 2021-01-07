@@ -29,6 +29,7 @@ public:
 	void OnClientConnected(int ClientID, bool AsSpec) override;
 
 	void AnnounceSkinChange(int ClientID);
+	void SendChatTarget(int To, const char *pText);
 
 	CInfClassPlayer *GetPlayer(int ClientID);
 	CInfClassPlayerClass *CreateInfClass(int ClassId);
