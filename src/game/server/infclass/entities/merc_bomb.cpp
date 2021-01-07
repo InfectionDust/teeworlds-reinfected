@@ -7,6 +7,8 @@
 #include <game/server/infclass/classes/infcplayerclass.h>
 #include <game/server/infclass/entities/infccharacter.h>
 
+#include "growing_explosion.h"
+
 int CMercenaryBomb::EntityId = 0;
 
 CMercenaryBomb::CMercenaryBomb(CInfClassGameContext *pGameContext, vec2 Pos, int Owner)
@@ -50,10 +52,37 @@ void CMercenaryBomb::Tick()
 
 	if(m_Damage >= Config()->m_InfMercBombs && m_LoadingTick > 0)
 		m_LoadingTick--;
+
+	// Find other players
+	bool MustExplode = false;
+	for(CInfClassCharacter *p = (CInfClassCharacter*) GameWorld()->FindFirst(CGameWorld::ENTTYPE_CHARACTER); p; p = (CInfClassCharacter *)p->TypeNext())
+	{
+		if(p->GetClass()->IsHuman())
+			continue;
+
+		float Len = distance(p->GetPos(), m_Pos);
+		if(Len < p->GetProximityRadius()+80.0f)
+		{
+			MustExplode = true;
+			break;
+		}
+	}
+
+	if(MustExplode)
+		Explode();
 }
 
 void CMercenaryBomb::Explode()
 {
+	if(m_Damage > 1)
+	{
+		float Factor = static_cast<float>(m_Damage)/Config()->m_InfMercBombs;
+		GameServer()->CreateSound(m_Pos, SOUND_GRENADE_EXPLODE);
+		vec2 ExplosionDirection(0, -1);
+		new CGrowingExplosion(GameContext(), GetPos(), GetOwner(),
+		                      ExplosionDirection, 16.0f * Factor, ExplosionEffect::BoomInfected);
+	}
+
 	GameServer()->m_World.DestroyEntity(this);
 }
 
