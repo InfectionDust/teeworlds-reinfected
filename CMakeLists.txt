@@ -1646,6 +1646,8 @@ set(SERVER_INF_CLASS_SRC
   src/game/server/infclass/classes/infected/infected.h
   src/game/server/infclass/classes/infected/slug.cpp
   src/game/server/infclass/classes/infected/slug.h
+  src/game/server/infclass/entities/growing_explosion.cpp
+  src/game/server/infclass/entities/growing_explosion.h
   src/game/server/infclass/entities/infccharacter.cpp
   src/game/server/infclass/entities/infccharacter.h
   src/game/server/infclass/entities/infcentity.cpp
