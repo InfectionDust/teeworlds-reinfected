@@ -123,6 +123,11 @@ void CInfClassPlayerClass::SetupSkin()
 
 int CInfClassPlayerClass::GetNormalEmote() const
 {
+//	DONE: int EmoteNormal = EMOTE_NORMAL;
+//	DONE: if(IsZombie()) EmoteNormal = EMOTE_ANGRY;
+//	TODO: if(m_IsInvisible) EmoteNormal = EMOTE_BLINK;
+//	TODO: if(m_LoveTick > 0 || m_HallucinationTick > 0 || m_SlowMotionTick > 0) EmoteNormal = EMOTE_SURPRISE;
+//	TODO: if(IsFrozen()) EmoteNormal = EMOTE_PAIN;
 	return EMOTE_NORMAL;
 }
 
