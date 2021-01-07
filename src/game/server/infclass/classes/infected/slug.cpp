@@ -51,6 +51,7 @@ void CInfClassSlug::SetupSkin()
 void CInfClassSlug::OnHammerFired()
 {
 	CInfClassInfected::OnHammerFired();
+	m_pCharacter->SetAttackAnimationEnabled(false);
 
 	vec2 CheckPos = GetPos() + GetDirection() * 64.0f;
 	if(GameServer()->Collision()->IntersectLine(GetPos(), CheckPos, 0x0, &CheckPos))
@@ -67,9 +68,9 @@ void CInfClassSlug::OnHammerFired()
 		if(Distance > 84.0f)
 		{
 			new CSlugSlime(GameContext(), CheckPos, GetCID());
+			m_pCharacter->SetAttackAnimationEnabled(true);
 		}
 	}
-	// TODO: Process ShowAttackAnimation
 }
 
 void CInfClassSlug::OnSlimeEffect(int)
