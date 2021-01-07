@@ -10,6 +10,7 @@ CInfClassHuman::CInfClassHuman()
 bool CInfClassHuman::IsFullAutoFireWeapon(int Weapon) const
 {
 	switch (Weapon) {
+		case WEAPON_GUN:
 		case WEAPON_GRENADE:
 		case WEAPON_SHOTGUN:
 		case WEAPON_LASER:
