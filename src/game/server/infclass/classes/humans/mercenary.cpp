@@ -19,6 +19,23 @@ const char *CInfClassMercenary::GetClassDisplayName()
 	return "Mercenary";
 }
 
+void CInfClassMercenary::SetupSkin()
+{
+	CInfClassHuman::SetupSkin(); // Reset to default
+
+	// Hero (correct colors)
+	str_copy(m_SkinInfo.m_aaSkinPartNames[SKINPART_MARKING], "stripes", sizeof(m_SkinInfo.m_aaSkinPartNames[SKINPART_MARKING]));
+	m_SkinInfo.m_aUseCustomColors[SKINPART_BODY] = 1;
+	m_SkinInfo.m_aUseCustomColors[SKINPART_HANDS] = 1;
+	m_SkinInfo.m_aUseCustomColors[SKINPART_FEET] = 1;
+	m_SkinInfo.m_aSkinPartColors[SKINPART_BODY] = 10187898;
+	m_SkinInfo.m_aSkinPartColors[SKINPART_MARKING] = -16711808;
+	m_SkinInfo.m_aSkinPartColors[SKINPART_DECORATION] = 65408;
+	m_SkinInfo.m_aSkinPartColors[SKINPART_HANDS] = 750848;
+	m_SkinInfo.m_aSkinPartColors[SKINPART_FEET] = 1944919;
+	m_SkinInfo.m_aSkinPartColors[SKINPART_EYES] = 65408;
+}
+
 void CInfClassMercenary::OnCharacterSpawned()
 {
 	CInfClassHuman::OnCharacterSpawned();

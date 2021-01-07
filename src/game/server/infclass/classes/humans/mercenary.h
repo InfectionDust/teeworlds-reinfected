@@ -12,6 +12,7 @@ public:
 	static const char *ClassName() { return "mercenary"; }
 	const char *GetClassName() override;
 	const char *GetClassDisplayName() override;
+	void SetupSkin() override;
 
 	void OnCharacterSpawned() override;
 	void OnGunFired() override;
