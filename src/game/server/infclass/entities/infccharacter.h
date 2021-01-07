@@ -28,6 +28,7 @@ public:
 	void SetLastWeapon(int Weapon);
 	void TakeAllWeapons();
 	void SetReloadTimer(int ReloadTimer);
+	void SetAttackAnimationEnabled(bool Enabled);
 
 	CInfClassPlayerClass *GetClass() { return m_pClass; }
 	void SetClass(CInfClassPlayerClass *pClass);
@@ -38,6 +39,7 @@ protected:
 	CInfClassGameContext *m_pContext = nullptr;
 	CInfClassPlayerClass *m_pClass = nullptr;
 	bool m_Grounded = false;
+	bool m_AttackAnimationEnabled = false;
 };
 
 #endif // GAME_SERVER_INFCLASS_ENTITIES_CHARACTER_H

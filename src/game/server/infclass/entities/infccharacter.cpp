@@ -70,6 +70,7 @@ void CInfClassCharacter::FireWeapon()
 	if(m_ReloadTimer != 0)
 		return;
 
+	SetAttackAnimationEnabled(true);
 	DoWeaponSwitch();
 
 	bool FullAuto = m_pClass->IsFullAutoFireWeapon(m_ActiveWeapon);
@@ -106,6 +107,9 @@ void CInfClassCharacter::FireWeapon()
 	}
 
 	m_pClass->OnWeaponFired(m_ActiveWeapon);
+
+	if(!m_AttackAnimationEnabled)
+		return;
 
 	m_AttackTick = Server()->Tick();
 
@@ -210,6 +214,11 @@ void CInfClassCharacter::TakeAllWeapons()
 void CInfClassCharacter::SetReloadTimer(int ReloadTimer)
 {
 	m_ReloadTimer = ReloadTimer;
+}
+
+void CInfClassCharacter::SetAttackAnimationEnabled(bool Enabled)
+{
+	m_AttackAnimationEnabled = Enabled;
 }
 
 void CInfClassCharacter::SetClass(CInfClassPlayerClass *pClass)
