@@ -2,6 +2,7 @@
 
 #include <game/server/entities/character.h>
 #include <game/server/gamecontext.h>
+#include <game/server/infclass/infcserver.h>
 
 #include "entities/infccharacter.h"
 
@@ -11,6 +12,11 @@
 CGameControllerInfClass::CGameControllerInfClass(CGameContext *pGameServer) : IGameController(pGameServer)
 {
 	m_pGameType = "InfClassR7";
+}
+
+CInfClassServer *CGameControllerInfClass::ModServer() const
+{
+	return static_cast<CInfClassServer *>(Server());
 }
 
 bool CGameControllerInfClass::PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pOutPos)

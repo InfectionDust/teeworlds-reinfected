@@ -6,6 +6,7 @@
 class CCharacter;
 class CGameContext;
 class CInfClassPlayer;
+class CInfClassServer;
 
 enum SPAWN_POINT_TYPE
 {
@@ -18,6 +19,8 @@ class CGameControllerInfClass : public IGameController
 {
 public:
 	CGameControllerInfClass(CGameContext *pGameServer);
+
+	CInfClassServer *ModServer() const;
 
 	bool PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pOutPos);
 
