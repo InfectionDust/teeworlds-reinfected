@@ -27,11 +27,13 @@ public:
 	void OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID) override;
 	void OnTick() override;
 	void OnSnap(int ClientID) override;
+	void OnPostSnap() override;
 
 	void OnClientConnected(int ClientID, bool AsSpec) override;
 
 	void AnnounceSkinChange(int ClientID);
 	void SendChatTarget(int To, const char *pText);
+	void CreateSoundGlobal(int Sound);
 
 	CInfClassPlayer *GetPlayer(int ClientID);
 	CInfClassPlayerClass *CreateInfClass(int ClassId);
@@ -61,6 +63,7 @@ protected:
 		int m_SnapID;
 	};
 	array<LaserDotState> m_LaserDots;
+	array<int> m_GlobalSounds;
 
 	CMapItemGroup *m_pEntityGroup = nullptr;
 

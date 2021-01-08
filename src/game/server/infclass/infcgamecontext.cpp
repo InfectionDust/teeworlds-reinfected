@@ -235,7 +235,28 @@ void CInfClassGameContext::OnSnap(int ClientID)
 		}
 	}
 
+	// Snap global sounds
+	for (int i=0; i < m_GlobalSounds.size(); i++)
+	{
+		if (ClientID >= 0)
+		{
+			const vec2 SoundPos = m_apPlayers[ClientID]->m_ViewPos;
+
+			CNetEvent_SoundWorld *pObj = static_cast<CNetEvent_SoundWorld *>(Server()->SnapNewItem(NETEVENTTYPE_SOUNDWORLD, i, sizeof(CNetEvent_SoundWorld)));
+			pObj->m_SoundID = m_GlobalSounds[i];
+			pObj->m_X = static_cast<int>(SoundPos.x);
+			pObj->m_Y = static_cast<int>(SoundPos.y);
+		}
+	}
+
 	CGameContext::OnSnap(ClientID);
+}
+
+void CInfClassGameContext::OnPostSnap()
+{
+	m_GlobalSounds.clear();
+
+	CGameContext::OnPostSnap();
 }
 
 void CInfClassGameContext::OnClientConnected(int ClientID, bool AsSpec)
@@ -278,6 +299,14 @@ void CInfClassGameContext::SendChatTarget(int To, const char *pText)
 	Msg.m_pMessage = pText;
 	Msg.m_TargetID = To;
 	Server()->SendPackMsg(&Msg, MSGFLAG_VITAL, To);
+}
+
+void CInfClassGameContext::CreateSoundGlobal(int Sound)
+{
+	if (Sound < 0)
+		return;
+
+	m_GlobalSounds.add(Sound); // create a sound
 }
 
 CInfClassPlayer *CInfClassGameContext::GetPlayer(int ClientID)
