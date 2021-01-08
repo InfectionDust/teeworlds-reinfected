@@ -1,5 +1,6 @@
 #include "hero.h"
 
+#include <game/server/infclass/entities/hero_flag.h>
 #include <game/server/infclass/entities/infccharacter.h>
 
 CInfClassHero::CInfClassHero()
@@ -34,6 +35,16 @@ void CInfClassHero::SetupSkin()
 	m_SkinInfo.m_aSkinPartColors[SKINPART_EYES] = 65408;
 }
 
+void CInfClassHero::Tick()
+{
+	CInfClassHuman::Tick();
+
+	if(!m_pHeroFlag)
+	{
+		m_pHeroFlag = new CHeroFlag(GameContext(), GetCID());
+	}
+}
+
 void CInfClassHero::OnCharacterSpawned()
 {
 	CInfClassHuman::OnCharacterSpawned();
@@ -45,4 +56,11 @@ void CInfClassHero::OnCharacterSpawned()
 
 	m_pCharacter->SetActiveWeapon(WEAPON_GRENADE);
 	m_pCharacter->SetLastWeapon(WEAPON_GUN);
+}
+
+void CInfClassHero::GiveGift()
+{
+	m_pCharacter->GiveWeapon(WEAPON_SHOTGUN, -1);
+	m_pCharacter->GiveWeapon(WEAPON_GRENADE, -1);
+	m_pCharacter->GiveWeapon(WEAPON_LASER, -1);
 }

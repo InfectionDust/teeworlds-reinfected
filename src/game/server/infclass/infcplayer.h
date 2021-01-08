@@ -23,6 +23,7 @@ public:
 	void TryRespawn() override;
 	void SyncSkin();
 
+	CInfClassCharacter *GetModCharacter() { return m_pInfcCharacter; }
 	CInfClassPlayerClass *GetCharacterClass() { return m_pInfcPlayerClass; }
 	const CInfClassPlayerClass *GetCharacterClass() const { return m_pInfcPlayerClass; }
 	void SetCharacterClass(int ClassId);

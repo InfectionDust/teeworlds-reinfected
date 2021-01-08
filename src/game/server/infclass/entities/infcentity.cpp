@@ -11,6 +11,11 @@ CInfCEntity::CInfCEntity(CInfClassGameContext *pGameContext, int ObjectType, vec
 {
 }
 
+CGameControllerInfClass *CInfCEntity::GetController() const
+{
+	return m_pContext->GetController();
+}
+
 CInfClassServer *CInfCEntity::ModServer() const
 {
 	return static_cast<CInfClassServer *>(m_pContext->Server());

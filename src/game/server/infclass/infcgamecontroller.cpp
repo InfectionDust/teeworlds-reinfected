@@ -6,6 +6,7 @@
 #include <game/server/infclass/infcserver.h>
 
 #include "entities/infccharacter.h"
+#include "entities/infcentity.h"
 
 #include "infcgamecontroller.h"
 #include "infcplayer.h"
@@ -56,8 +57,18 @@ bool CGameControllerInfClass::OnModEntity(const char *pName, vec2 Pivot, vec2 P0
 		m_aSpawnPoints[POINT_TYPE_INFECTED].add(Pos);
 	else if(str_comp(pName, "icHuman") == 0)
 		m_aSpawnPoints[POINT_TYPE_HUMAN].add(Pos);
+	else if(str_comp(pName, "icHeroFlag") == 0)
+		m_HeroFlagPositions.add(Pos);
 
 	return false;
+}
+
+void CGameControllerInfClass::Tick()
+{
+	IGameController::Tick();
+
+	if(m_GlobalHeroGiftCoolDown > 0)
+		m_GlobalHeroGiftCoolDown--;
 }
 
 void CGameControllerInfClass::OnCharacterSpawn(CCharacter *pChr)
@@ -66,4 +77,44 @@ void CGameControllerInfClass::OnCharacterSpawn(CCharacter *pChr)
 	CInfClassCharacter *pCharacter = static_cast<CInfClassCharacter *>(pChr);
 	// Route the event method to the class itself
 	pCharacter->OnCharacterSpawn();
+}
+
+void CGameControllerInfClass::FindHeroFlagPosition(CInfCEntity *pFlag)
+{
+	int NbPos = m_HeroFlagPositions.size();
+	int Index = random_int() % NbPos;
+
+	pFlag->SetPosition(m_HeroFlagPositions[Index]);
+}
+
+int CGameControllerInfClass::GetHeroGiftCoolDown() const
+{
+	// Set cooldown for next flag depending on how many players are online
+	int PlayerCount = ModServer()->GetActivePlayerCount();
+	if (PlayerCount <= 1)
+	{
+		// only 1 player on, let him find as many flags as he wants
+		return 2;
+	}
+	const int BaseCooldown = 15;
+	const int MaxExtraCooldown = 120;
+	const int CooldownReductionPerPlayer = 15;
+	const int ExtraCooldown = max(0, MaxExtraCooldown - CooldownReductionPerPlayer * PlayerCount);
+	return Server()->TickSpeed() * (BaseCooldown + ExtraCooldown);
+}
+
+int CGameControllerInfClass::GetGlobalHeroGiftCoolDown() const
+{
+	return m_GlobalHeroGiftCoolDown;
+}
+
+void CGameControllerInfClass::OnFlagCollected(CInfCEntity *)
+{
+	if (m_GlobalHeroGiftCoolDown <= 0)
+	{
+		m_GlobalHeroGiftCoolDown = GetHeroGiftCoolDown();
+	}
+
+	GameServer()->SendBroadcast("The Hero found the flag!", -1);
+	GameContext()->CreateSoundGlobal(SOUND_CTF_CAPTURE);
 }

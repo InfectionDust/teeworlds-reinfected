@@ -11,6 +11,15 @@ CInfClassHuman::CInfClassHuman()
 {
 }
 
+void CInfClassHuman::GiveGift()
+{
+	m_pCharacter->IncreaseHealth(1);
+	m_pCharacter->IncreaseArmor(4);
+	m_pCharacter->SetEmote(EMOTE_HAPPY, Server()->Tick() + Server()->TickSpeed());
+
+	GameServer()->SendEmoticon(GetCID(), EMOTICON_MUSIC);
+}
+
 bool CInfClassHuman::IsFullAutoFireWeapon(int Weapon) const
 {
 	switch (Weapon) {

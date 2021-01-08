@@ -5,6 +5,7 @@
 
 #include <game/server/entity.h>
 
+class CGameControllerInfClass;
 class CInfCExplosionContext;
 class CInfClassGameContext;
 class CInfClassServer;
@@ -15,6 +16,7 @@ public:
 	CInfCEntity(CInfClassGameContext *pGameContext, int ObjectType, vec2 Pos, int Owner,
 	            int ProximityRadius=0);
 	CInfClassGameContext *GameContext() const { return m_pContext; }
+	CGameControllerInfClass *GetController() const;
 	CInfClassServer *ModServer() const;
 
 	int GetOwner() const { return m_Owner; }

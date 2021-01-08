@@ -10,6 +10,8 @@ class CInfClassHuman : public CInfClassPlayerClass
 public:
 	explicit CInfClassHuman();
 
+	virtual void GiveGift();
+
 	bool IsHuman() const final { return true; }
 
 	bool IsFullAutoFireWeapon(int Weapon) const;

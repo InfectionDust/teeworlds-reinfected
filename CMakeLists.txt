@@ -1648,6 +1648,8 @@ set(SERVER_INF_CLASS_SRC
   src/game/server/infclass/classes/infected/slug.h
   src/game/server/infclass/entities/growing_explosion.cpp
   src/game/server/infclass/entities/growing_explosion.h
+  src/game/server/infclass/entities/hero_flag.cpp
+  src/game/server/infclass/entities/hero_flag.h
   src/game/server/infclass/entities/infccharacter.cpp
   src/game/server/infclass/entities/infccharacter.h
   src/game/server/infclass/entities/infcentity.cpp
