@@ -71,3 +71,13 @@ void CInfClassPlayer::SetCharacterClass(CInfClassPlayerClass *pClass)
 		}
 	}
 }
+
+bool CInfClassPlayer::IsHuman() const
+{
+	return m_pInfcPlayerClass && m_pInfcPlayerClass->IsHuman();
+}
+
+bool CInfClassPlayer::IsZombie() const
+{
+	return m_pInfcPlayerClass && m_pInfcPlayerClass->IsZombie();
+}

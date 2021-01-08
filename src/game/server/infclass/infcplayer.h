@@ -28,6 +28,9 @@ public:
 	void SetCharacterClass(int ClassId);
 	void SetCharacterClass(CInfClassPlayerClass *pClass);
 
+	bool IsHuman() const;
+	bool IsZombie() const;
+
 protected:
 	CInfClassGameContext *m_pInfcGameContext = nullptr;
 	CInfClassCharacter *m_pInfcCharacter = nullptr;
