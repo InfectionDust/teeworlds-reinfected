@@ -21,6 +21,11 @@ void CInfCEntity::Reset()
 	GameServer()->m_World.DestroyEntity(this);
 }
 
+void CInfCEntity::SetPosition(const vec2 &Position)
+{
+	m_Pos = Position;
+}
+
 void CInfCEntity::OnExplosion(const CInfCExplosionContext &)
 {
 }

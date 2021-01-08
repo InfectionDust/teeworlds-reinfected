@@ -20,6 +20,7 @@ public:
 	int GetOwner() const { return m_Owner; }
 
 	void Reset() override;
+	void SetPosition(const vec2 &Position);
 
 	virtual void OnExplosion(const CInfCExplosionContext &context);
 
