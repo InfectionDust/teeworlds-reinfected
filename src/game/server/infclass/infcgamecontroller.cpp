@@ -13,9 +13,25 @@ CGameControllerInfClass::CGameControllerInfClass(CGameContext *pGameServer) : IG
 	m_pGameType = "InfClassR7";
 }
 
-bool CGameControllerInfClass::PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pPos)
+bool CGameControllerInfClass::PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pOutPos)
 {
-	return CanSpawn(pPlayer->GetTeam(), pPos);
+	SPAWN_POINT_TYPE SpawnType = (pPlayer->IsZombie() ? POINT_TYPE_INFECTED : POINT_TYPE_HUMAN);
+
+	const array<vec2> &SpawnPoints = m_aSpawnPoints[SpawnType];
+
+	if(SpawnPoints.size() == 0)
+		return false;
+
+	// get spawn point
+	int RandomShift = random_int() % SpawnPoints.size();
+	for(int i = 0; i < SpawnPoints.size(); i++)
+	{
+		int I = (i + RandomShift)%SpawnPoints.size();
+		*pOutPos = SpawnPoints[I];
+		return true;
+	}
+
+	return false;
 }
 
 bool CGameControllerInfClass::OnEntity(int, vec2)
@@ -25,6 +41,13 @@ bool CGameControllerInfClass::OnEntity(int, vec2)
 
 bool CGameControllerInfClass::OnModEntity(const char *pName, vec2 Pivot, vec2 P0, vec2 P1, vec2 P2, vec2 P3, int PosEnv)
 {
+	vec2 Pos = (P0 + P1 + P2 + P3)/4.0f;
+
+	if(str_comp(pName, "icInfected") == 0)
+		m_aSpawnPoints[POINT_TYPE_INFECTED].add(Pos);
+	else if(str_comp(pName, "icHuman") == 0)
+		m_aSpawnPoints[POINT_TYPE_HUMAN].add(Pos);
+
 	return false;
 }
 
