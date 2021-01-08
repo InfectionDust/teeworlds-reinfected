@@ -19,6 +19,8 @@ class CInfClassServer : public CServer
 {
 public:
 	CInfClassServer();
+
+	int GetActivePlayerCount();
 };
 
 #endif // GAME_SERVER_INFCLASS_MAP_H
