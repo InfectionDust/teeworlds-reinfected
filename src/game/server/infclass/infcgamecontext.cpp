@@ -280,12 +280,6 @@ void CInfClassGameContext::OnClientConnected(int ClientID, bool AsSpec)
 	SendSettings(ClientID);
 }
 
-void CInfClassGameContext::OnClientEnter(int ClientID)
-{
-	CommandManager()->AddCommand("witch", "Call Witch", "", &CInfClassGameContext::ConWitch, this);
-	CGameContext::OnClientEnter(ClientID);
-}
-
 void CInfClassGameContext::AnnounceSkinChange(int ClientID)
 {
 	for(int i = 0; i < MAX_CLIENTS; ++i)
@@ -440,56 +434,6 @@ void CInfClassGameContext::ConSetClass(IConsole::IResult *pResult, void *pUserDa
 
 	pSelf->Console()->Print(IConsole::OUTPUT_LEVEL_STANDARD, "inf_set_class", "Unknown class");
 	return;
-}
-
-void CInfClassGameContext::ConWitch(IConsole::IResult *pResult, void *pUserData)
-{
-	CCommandManager::SCommandContext *pContext = (CCommandManager::SCommandContext *)pUserData;
-	CInfClassGameContext *pSelf = (CInfClassGameContext *)pContext->m_pContext;
-	int ClientID = pContext->m_ClientID;
-//	int callers_count = pSelf->m_WitchCallers.size();
-	const int REQUIRED_CALLERS_COUNT = 5;
-	const int MIN_ZOMBIES = 2;
-
-	char aBuf[256];
-	str_format(aBuf, sizeof(aBuf), "ConWitch() called");
-	pSelf->Console()->Print(IConsole::OUTPUT_LEVEL_DEBUG, "conwitch", aBuf);
-
-//	if (pSelf->GetZombieCount(PLAYERCLASS_WITCH) >= pSelf->Server()->GetClassPlayerLimit(PLAYERCLASS_WITCH)) {
-//		str_format(aBuf, sizeof(aBuf), "All witches are already here");
-//		pSelf->SendChatTarget(ClientID, aBuf);
-//		return;
-//	}
-	if (true) { //pSelf->GetZombieCount() <= MIN_ZOMBIES) {
-		str_format(aBuf, sizeof(aBuf), "Too few zombies");
-		pSelf->SendChatTarget(ClientID, aBuf);
-		return;
-	}
-
-//	if (callers_count < REQUIRED_CALLERS_COUNT) {
-//		auto& wc = pSelf->m_WitchCallers;
-//		if(!(std::find(wc.begin(), wc.end(), ClientID) != wc.end())) {
-//			wc.push_back(ClientID); // add to witch callers vector
-//			callers_count += 1;
-//			if (callers_count == 1)
-//				str_format(aBuf, sizeof(aBuf), "%s is calling for Witch! (%d/%d) To call witch write: /witch",
-//						pSelf->Server()->ClientName(ClientID), callers_count, REQUIRED_CALLERS_COUNT);
-//			else
-//				str_format(aBuf, sizeof(aBuf), "Witch (%d/%d)", callers_count, REQUIRED_CALLERS_COUNT);
-//		}
-//		else {
-//			str_format(aBuf, sizeof(aBuf), "You can't call witch twice");
-//			pSelf->SendChatTarget(ClientID, aBuf);
-//			return;
-//		}
-//	}
-//	else {
-//		int witch_id = pSelf->RandomZombieToWitch();
-//		str_format(aBuf, sizeof(aBuf), "Witch %s has arrived!", pSelf->Server()->ClientName(witch_id));
-//	}
-	
-//	pSelf->SendChatTarget(-1, aBuf);
-//	return;
 }
 
 void CInfClassGameContext::LoadModEntities()
