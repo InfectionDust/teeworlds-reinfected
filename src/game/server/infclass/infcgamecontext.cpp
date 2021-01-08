@@ -140,6 +140,9 @@ void CInfClassGameContext::OnInit()
 		}
 	}
 
+	// Load INFC map data
+	LoadModEntities();
+
 	Console()->Chain("sv_motd", ConchainSpecialMotdupdate, this);
 
 	Console()->Chain("sv_vote_kick", ConchainSettingUpdate, this);
@@ -402,6 +405,47 @@ void CInfClassGameContext::ConSetClass(IConsole::IResult *pResult, void *pUserDa
 
 	pSelf->Console()->Print(IConsole::OUTPUT_LEVEL_STANDARD, "inf_set_class", "Unknown class");
 	return;
+}
+
+void CInfClassGameContext::LoadModEntities()
+{
+	for (int g = 0; g < m_Layers.NumGroups(); ++g)
+	{
+		CMapItemGroup *pGroup = m_Layers.GetGroup(g);
+
+		char aGroupName[12];
+		IntsToStr(pGroup->m_aName, sizeof(aGroupName)/sizeof(int), aGroupName);
+
+		if(str_comp(aGroupName, "#Entities") == 0)
+			m_pEntityGroup = pGroup;
+	}
+
+	if(m_pEntityGroup)
+	{
+		char aLayerName[12];
+
+		const CMapItemGroup* pGroup = m_pEntityGroup;
+		for(int l = 0; l < pGroup->m_NumLayers; l++)
+		{
+			CMapItemLayer *pLayer = m_Layers.GetLayer(pGroup->m_StartLayer+l);
+			if(pLayer->m_Type == LAYERTYPE_QUADS)
+			{
+				CMapItemLayerQuads *pQLayer = (CMapItemLayerQuads *)pLayer;
+				IntsToStr(pQLayer->m_aName, sizeof(aLayerName)/sizeof(int), aLayerName);
+				const CQuad *pQuads = (const CQuad *) Kernel()->RequestInterface<IMap>()->GetDataSwapped(pQLayer->m_Data);
+
+				for(int q = 0; q < pQLayer->m_NumQuads; q++)
+				{
+					vec2 P0(fx2f(pQuads[q].m_aPoints[0].x), fx2f(pQuads[q].m_aPoints[0].y));
+					vec2 P1(fx2f(pQuads[q].m_aPoints[1].x), fx2f(pQuads[q].m_aPoints[1].y));
+					vec2 P2(fx2f(pQuads[q].m_aPoints[2].x), fx2f(pQuads[q].m_aPoints[2].y));
+					vec2 P3(fx2f(pQuads[q].m_aPoints[3].x), fx2f(pQuads[q].m_aPoints[3].y));
+					vec2 Pivot(fx2f(pQuads[q].m_aPoints[4].x), fx2f(pQuads[q].m_aPoints[4].y));
+					m_pInfcGameController->OnModEntity(aLayerName, Pivot, P0, P1, P2, P3, pQuads[q].m_PosEnv);
+				}
+			}
+		}
+	}
 }
 
 IGameServer *CreateModGameServer() { return new CInfClassGameContext; }

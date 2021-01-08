@@ -18,6 +18,16 @@ bool CGameControllerInfClass::PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pPo
 	return CanSpawn(pPlayer->GetTeam(), pPos);
 }
 
+bool CGameControllerInfClass::OnEntity(int, vec2)
+{
+	return false;
+}
+
+bool CGameControllerInfClass::OnModEntity(const char *pName, vec2 Pivot, vec2 P0, vec2 P1, vec2 P2, vec2 P3, int PosEnv)
+{
+	return false;
+}
+
 void CGameControllerInfClass::OnCharacterSpawn(CCharacter *pChr)
 {
 	// We work only with InfClass characters

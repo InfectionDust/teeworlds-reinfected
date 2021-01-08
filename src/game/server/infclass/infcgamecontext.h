@@ -51,6 +51,8 @@ protected:
 
 	static void ConSetClass(IConsole::IResult *pResult, void *pUserData);
 
+	void LoadModEntities();
+
 	struct LaserDotState
 	{
 		vec2 m_Pos0;
@@ -59,6 +61,8 @@ protected:
 		int m_SnapID;
 	};
 	array<LaserDotState> m_LaserDots;
+
+	CMapItemGroup *m_pEntityGroup = nullptr;
 
 	CGameControllerInfClass *m_pInfcGameController = nullptr;
 	std::vector<InfPlayerClassConstructor*> m_ClassConstructors;

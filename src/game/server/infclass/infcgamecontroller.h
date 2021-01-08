@@ -14,6 +14,9 @@ public:
 
 	bool PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pPos);
 
+	bool OnEntity(int Index, vec2 Pos) override;
+	bool OnModEntity(const char* pName, vec2 Pivot, vec2 P0, vec2 P1, vec2 P2, vec2 P3, int PosEnv);
+
 	void OnCharacterSpawn(CCharacter *pChr) override;
 };
 
