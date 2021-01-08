@@ -5,6 +5,7 @@
 
 class CCharacter;
 class CGameContext;
+class CInfClassGameContext;
 class CInfClassPlayer;
 class CInfClassServer;
 
@@ -18,9 +19,10 @@ enum SPAWN_POINT_TYPE
 class CGameControllerInfClass : public IGameController
 {
 public:
-	CGameControllerInfClass(CGameContext *pGameServer);
+	CGameControllerInfClass(CInfClassGameContext *pContext);
 
 	CInfClassServer *ModServer() const;
+	CInfClassGameContext *GameContext() const { return m_pGameContext; }
 
 	bool PreSpawn(const CInfClassPlayer *pPlayer, vec2 *pOutPos);
 
@@ -30,6 +32,7 @@ public:
 	void OnCharacterSpawn(CCharacter *pChr) override;
 
 protected:
+	CInfClassGameContext *m_pGameContext = nullptr;
 	array<vec2> m_aSpawnPoints[POINT_TYPES_COUNT];
 };
 

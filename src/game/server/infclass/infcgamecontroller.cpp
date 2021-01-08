@@ -2,6 +2,7 @@
 
 #include <game/server/entities/character.h>
 #include <game/server/gamecontext.h>
+#include <game/server/infclass/infcgamecontext.h>
 #include <game/server/infclass/infcserver.h>
 
 #include "entities/infccharacter.h"
@@ -9,7 +10,9 @@
 #include "infcgamecontroller.h"
 #include "infcplayer.h"
 
-CGameControllerInfClass::CGameControllerInfClass(CGameContext *pGameServer) : IGameController(pGameServer)
+CGameControllerInfClass::CGameControllerInfClass(CInfClassGameContext *pContext)
+	: IGameController(pContext)
+	, m_pGameContext(pContext)
 {
 	m_pGameType = "InfClassR7";
 }
