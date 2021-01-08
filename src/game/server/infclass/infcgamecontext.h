@@ -14,12 +14,14 @@ class CInfClassGameContext : public CGameContext
 {
 public:
 	CInfClassGameContext();
+	~CInfClassGameContext();
 
 	CGameControllerInfClass *GetController() const { return m_pInfcGameController; }
 	CGameWorld *GameWorld();
 
 	void RegisterTypes();
 	void OnInit() override;
+	void OnShutdown() override;
 	void OnConsoleInit() override;
 
 	void OnMessage(int MsgID, CUnpacker *pUnpacker, int ClientID) override;
@@ -39,6 +41,9 @@ public:
 	void CreateLaserDotEvent(vec2 Pos0, vec2 Pos1, int LifeSpan);
 
 protected:
+	CInfClassGameContext(int Resetting);
+	void ModClear();
+
 	using InfPlayerClassConstructor = CInfClassPlayerClass *();
 
 	template <typename C>

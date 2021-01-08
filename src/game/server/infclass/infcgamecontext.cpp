@@ -13,6 +13,15 @@
 #include <engine/shared/config.h>
 #include <base/system.h>
 
+class CHeap;
+
+// enum from gamecontext.cpp:
+enum
+{
+	RESET,
+	NO_RESET
+};
+
 template<typename C>
 static CInfClassPlayerClass *constructor()
 {
@@ -39,6 +48,35 @@ void RegisterInfClassEntity()
 
 CInfClassGameContext::CInfClassGameContext()
 {
+}
+
+CInfClassGameContext::CInfClassGameContext(int Resetting)
+	: CGameContext(Resetting)
+{
+}
+
+CInfClassGameContext::~CInfClassGameContext()
+{
+}
+
+void CInfClassGameContext::ModClear()
+{
+	CHeap *pVoteOptionHeap = m_pVoteOptionHeap;
+	CVoteOptionServer *pVoteOptionFirst = m_pVoteOptionFirst;
+	CVoteOptionServer *pVoteOptionLast = m_pVoteOptionLast;
+	int NumVoteOptions = m_NumVoteOptions;
+	CTuningParams Tuning = m_Tuning;
+
+	m_Resetting = true;
+	this->~CInfClassGameContext();
+	mem_zero(this, sizeof(*this));
+	new (this) CInfClassGameContext(RESET);
+
+	m_pVoteOptionHeap = pVoteOptionHeap;
+	m_pVoteOptionFirst = pVoteOptionFirst;
+	m_pVoteOptionLast = pVoteOptionLast;
+	m_NumVoteOptions = NumVoteOptions;
+	m_Tuning = Tuning;
 }
 
 void CInfClassGameContext::RegisterTypes()
@@ -117,6 +155,13 @@ void CInfClassGameContext::OnInit()
 	// clamp sv_player_slots to 0..MaxClients
 	if(Config()->m_SvMaxClients < Config()->m_SvPlayerSlots)
 		Config()->m_SvPlayerSlots = Config()->m_SvMaxClients;
+}
+
+void CInfClassGameContext::OnShutdown()
+{
+	delete m_pController;
+	m_pController = 0;
+	ModClear();
 }
 
 void CInfClassGameContext::OnConsoleInit()
