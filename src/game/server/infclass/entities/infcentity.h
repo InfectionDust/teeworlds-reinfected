@@ -11,7 +11,8 @@ class CInfClassGameContext;
 class CInfCEntity : public CEntity
 {
 public:
-	CInfCEntity(CInfClassGameContext *pGameContext, int ObjectType, vec2 Pos, int Owner);
+	CInfCEntity(CInfClassGameContext *pGameContext, int ObjectType, vec2 Pos, int Owner,
+	            int ProximityRadius=0);
 	CInfClassGameContext *GameContext() const { return m_pContext; }
 
 	int GetOwner() const { return m_Owner; }
